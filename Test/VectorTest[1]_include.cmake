@@ -1,0 +1,5 @@
+if(EXISTS "/home/mdl/project/xt_stl/Test/VectorTest[1]_tests.cmake")
+  include("/home/mdl/project/xt_stl/Test/VectorTest[1]_tests.cmake")
+else()
+  add_test(VectorTest_NOT_BUILT VectorTest_NOT_BUILT)
+endif()
