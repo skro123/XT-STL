@@ -7,6 +7,7 @@
 #include "algobase.h"
 #include "stl_uninitialized.h"
 #include "stl_contruct.h"
+#include "util.h"
 
 namespace my_stl
 {
@@ -79,7 +80,7 @@ namespace my_stl
                 rhs._M_end_of_storage = nullptr;
             }
 
-            // 析构函数 
+        /*-------------------函数成员-析构函数--------------------*/
             // 1.析构每一个元素；2.释放空间。
             ~vector() 
             {
@@ -93,7 +94,8 @@ namespace my_stl
             // 拷贝赋值函数
             vector& operator=(const vector& rhs)
             {
-                if (this != rhs)
+                // 比较地址是否相同 排除自我复制
+                if (this != &rhs)
                 {
                     const size_type r_Len = rhs.size();
                     // 分为三种情况处理 提高效率 
@@ -103,9 +105,7 @@ namespace my_stl
                         // 直接新分配一个 同时采用异常安全的形式
                         // 该tmp对象实际上只有三个指针 不会占用太多栈空间
                         vector tmp(rhs.begin(), rhs.end());
-                        swap(_M_start, tmp._M_start);
-                        swap(_M_finish, tmp._M_finish);
-                        swap(_M_end_of_storage, tmp._M_end_of_storage);
+                        swap(tmp);
                     }
                     else if (r_Len > this->size())
                     {
@@ -119,7 +119,7 @@ namespace my_stl
                     {
                         // 最后一种情况， rhs中的元素数量小于该对象的元素数量
                         // rhs的所有元素赋值到该对象，并将该对象多余部分析构
-                        auto index = my_stl::copy(rhs.begin, rhs.end(), _M_start);
+                        auto index = my_stl::copy(rhs.begin(), rhs.end(), _M_start);
                         my_stl::destroy(index, _M_finish);
                         _M_finish = _M_start + r_Len;
                     }
@@ -130,7 +130,7 @@ namespace my_stl
             // 移动赋值函数
             vector& operator=(vector&& rhs) noexcept
             {
-                data_allocator::destroy(_M_start, _M_finish);
+                destroy(_M_start, _M_finish);
                 data_allocator::deallocate(_M_start, capacity());
                 this->_M_start = rhs._M_start;
                 this->_M_finish = rhs._M_finish;
@@ -138,6 +138,7 @@ namespace my_stl
                 rhs._M_start = nullptr;
                 rhs._M_finish = nullptr;
                 rhs._M_end_of_storage = nullptr;
+                return *this;
             }
 
             // 初始化列表赋值函数
@@ -159,13 +160,7 @@ namespace my_stl
                 return result;
             }
 
-            inline void swap(iterator lhs, iterator rhs) noexcept
-            {
-                // todo 是否需要像MyTinySTL中使用右值引用？？
-                iterator tmp(lhs);
-                lhs = rhs;
-                rhs = tmp;
-            }
+
             void init_try()
             {
                 try {
@@ -195,6 +190,7 @@ namespace my_stl
                     throw;
                 }
             }
+            template <class iterator>
             void range_initialize(iterator first, iterator last)
             {
                 const size_type init_size = my_stl::max(static_cast<size_type>(last - first), static_cast<size_type>(16));
@@ -214,33 +210,38 @@ namespace my_stl
                 }
             }
 
-        /*----------------成员函数-容器操作------------------*/
+        /*----------------成员函数-迭代器相关操作------------------*/
         public:
-            // 迭代器相关操作
             iterator            begin()             noexcept
             { return _M_start;}
             iterator            begin()     const   noexcept
             { return _M_start;}
+
             iterator            end()               noexcept
             { return _M_finish;}
             iterator            end()       const   noexcept
             { return _M_finish;}
+
             const_iterator      cbegin()    const   noexcept
             { return begin();}
             const_iterator      cend()      const   noexcept
             { return end();}
 
-            // 容量查询相关操作
-            size_type           size()      const 
+        /*----------------成员函数-容量相关操作------------------*/
+        public:
+            size_type           size()      const   noexcept
             { return size_type(end() - begin());}
-            size_type           capacity()  const 
+            size_type           capacity()  const   noexcept
             { return size_type(_M_end_of_storage - begin());}
-            size_type           max_size()  const noexcept
+            size_type           max_size()  const   noexcept
             { return static_cast<size_type>(-1) / sizeof(T);}
-            bool                empty()     const 
-            { return begin() == end();}
+            bool                empty()     const   noexcept
+            { return begin() == end();} 
+            
 
-            // 元素访问相关操作
+
+        /*----------------成员函数-元素访问相关操作------------------*/
+        public:
             reference operator[] (size_type n)
             { return *(begin() + n);}
             const_reference operator[]  (size_type n) const
@@ -253,9 +254,17 @@ namespace my_stl
             { return *(end() - 1);}
             const_reference back() const
             { return *(end() - 1);}
+            reference at(size_type n)
+            { return (*this)[n];}
+            const_reference at(size_type n) const
+            { return (*this)[n];}
+            pointer       data()       noexcept 
+            { return _M_start; }
+            const_pointer data() const noexcept 
+            { return _M_start; }
 
-
-            // 修改容器相关操作
+        /*----------------成员函数-修改容器相关操作------------------*/
+        public:
             void push_back(const T& x) 
             {
                 if(_M_finish != _M_end_of_storage) 
@@ -306,9 +315,26 @@ namespace my_stl
             }
             void resize(size_type new_size) 
             { resize(new_size, value_type()); }
-    };
+
+            // 与另一个 vector 交换
+            void swap(vector& rhs) noexcept;
+
+    }; /* class vector */
 
 
+    // 与另一个 vector 交换
+    template <class T, class Alloc>
+    void 
+    vector<T, Alloc>::swap(vector<T, Alloc>& rhs) noexcept
+    {
+        if (this != &rhs)
+        {
+            my_stl::swap(_M_start, rhs._M_start);
+            my_stl::swap(_M_finish, rhs._M_finish);
+            my_stl::swap(_M_end_of_storage, rhs._M_end_of_storage);
+        }
+    }
+    
     template <class T, class Alloc>
     void
     vector<T, Alloc>::insert_aux(iterator position, const T& x) 
@@ -391,8 +417,54 @@ namespace my_stl
                 _M_end_of_storage = new_start + len;
             }
         }
+    } 
+
+    //-------------------重载与vector有关的逻辑运算符-----------------------//
+    
+    template <class T>
+    bool operator==(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return lhs.size() == rhs.size() &&
+        my_stl::equal(lhs.begin(), lhs.end(), rhs.begin());
     }
 
-}
+    template <class T>
+    bool operator<(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return my_stl::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), lhs.end());
+    }
+
+    template <class T>
+    bool operator!=(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template <class T>
+    bool operator>(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return rhs < lhs;
+    }
+
+    template <class T>
+    bool operator<=(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return !(rhs < lhs);
+    }
+
+    template <class T>
+    bool operator>=(const vector<T>& lhs, const vector<T>& rhs)
+    {
+        return !(lhs < rhs);
+    }
+
+    // 对 vector 重载swap
+    template <class T, class Alloc>
+    void swap(vector<T, Alloc>& lhs, vector<T, Alloc>& rhs) noexcept
+    {
+        // todo 是否需要像MyTinySTL中使用右值引用？？
+        lhs.swap(rhs);
+    }
+} /* my_stl */
 
 #endif /* XTSTL_VECTOR_H */

@@ -70,6 +70,7 @@ namespace my_stl
         return compare(rhs, lhs) ? rhs : lhs;
     }
 
+    //------------iter_swap-----------------------//
 
     /*
      * @name Copy
@@ -234,7 +235,7 @@ namespace my_stl
     {
         for( ; first != last; ++first, ++result)
         {
-            *result = static_cast<typenmae std::remove_reference<T>::type&&>(*first);
+            *result = static_cast<typename std::remove_reference<InputIter>::type&&>(*first);
         }
         return result;
     }
@@ -245,7 +246,7 @@ namespace my_stl
     {
         for (auto n = last - first; n > 0; --n, ++result, ++first)
         {
-            *result = static_cast<typename std::remove_reference<>::type&&>(*first);
+            *result = static_cast<typename std::remove_reference<RandomIter>::type&&>(*first);
         }
         return result;
     }
@@ -290,7 +291,7 @@ namespace my_stl
     {
         for (auto n = last - first; n > 0; --n, --result, --last)
         {
-            *result = static_cast<typename std::remove_reference<
+            *result = static_cast<typename std::remove_reference<RandomIter1>::type&&>(*first);
         }
     }
 
@@ -312,7 +313,7 @@ namespace my_stl
         if ( n != 0)
         {
             result = result - n;
-            std::memmove(result, fisrt, n * sizeof(Up));
+            std::memmove(result, first, n * sizeof(Up));
         }
     }
 
@@ -358,7 +359,7 @@ namespace my_stl
     template <class OutputIter, class Size, class T>
     OutputIter __fill_n(OutputIter first, Size n, const T& value)
     {
-        for( ; 0 > n; --n, ++first)
+        for( ; n > 0; --n, ++first)
         {
             *first = value;
         }
@@ -412,6 +413,85 @@ namespace my_stl
     {
         __fill_cat(first, last, my_stl::iterator_category(first));
     }
-}
+
+    //------------------------lexicographical_cmpare--------------------//
+    template <class InputIter1, class InputIter2>
+    bool
+    lexicographical_compare(InputIter1 first1, InputIter1 last1,
+                            InputIter2 first2, InputIter2 last2)
+    {
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2)
+        {
+            if (*first1 < *first2)
+            {
+                return true;
+            }
+            else if (*first2 < *first1)
+            {
+                return false;
+            }
+        }
+        return first1 == last1 && first2 != last2;
+    }
+
+    // 重载比较操作符
+    template <class InputIter1, class InputIter2, class Comp>
+    bool
+    lexicographical_compare(InputIter1 first1, InputIter1 last1,
+                            InputIter2 first2, InputIter2 last2,
+                            Comp comp)
+    {
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2)
+        {
+            if (comp(*first1, *first2))
+            {
+                return true;
+            }
+            else if (comp(*first2, *first1))
+            {
+                return false;
+            }
+        }
+        return first1 == last1 && first2 != last2;
+    }
+
+    // 特化版本
+    bool lexicographical_compare(const unsigned char* first1,
+                                  const unsigned char* last1,
+                                 const unsigned char* first2,
+                                 const unsigned char* last2)
+    {
+        const auto len1 = last1 - first1;
+        const auto len2 = last2 - first2;
+
+        const auto result = std::memcmp(first1, first2, my_stl::min(len1, len2));
+        return result != 0 ? result < 0 : len1 < len2;
+    }              
+
+    //----------------------------mismatch----------------------------//
+    template <class InputIter1, class InputIter2>
+    std::pair<InputIter1, InputIter2>
+    mismatch(InputIter1 first1, InputIter1 last1, InputIter2 first2)
+    {
+        while (first1 != last1 && *first1 == *first2)
+        {
+            ++first1;
+            ++first2;
+        }
+        return std::pair<InputIter1, InputIter2>(first1, first2);
+    }              
+
+    template <class InputIter1, class InputIter2, class Comp>
+    std::pair<InputIter1, InputIter2>
+    mismatch(InputIter1 first1, InputIter1 last1, InputIter2 first2, Comp comp)
+    {
+        while (first1 != last1 && comp(*first1, *first2))
+        {
+            ++first1;
+            ++first2;
+        }
+        return std::pair<InputIter1, InputIter2>(first1, first2);
+    }
+} // namespace my_stl
 
 #endif // XT_STL_ALGOBASE_H_
