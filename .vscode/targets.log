@@ -1,0 +1,226 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Thu Aug 11 14:26:27 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_AGENT_FOLDER = /home/mdl/.vscode-server
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.1
+# makefile
+CURDIR := /home/mdl/project/xt_stl
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"08bdb29c43b4c03defdaaecc51ad48b6.zh-cn","_translationsConfigFile":"/home/mdl/.vscode-server/data/clp/08bdb29c43b4c03defdaaecc51ad48b6.zh-cn/tcf.json","_cacheRoot":"/home/mdl/.vscode-server/data/clp/08bdb29c43b4c03defdaaecc51ad48b6.zh-cn","_resolvedLanguagePackCoreLocation":"/home/mdl/.vscode-server/data/clp/08bdb29c43b4c03defdaaecc51ad48b6.zh-cn/da76f93349a72022ca4670c1b84860304616aaa2","_corruptedFile":"/home/mdl/.vscode-server/data/clp/08bdb29c43b4c03defdaaecc51ad48b6.zh-cn/corrupted.info","_languagePackSupport":true}
+# environment
+_ = /home/mdl/.vscode-server/bin/da76f93349a72022ca4670c1b84860304616aaa2/node
+# makefile
+MAKEFILE_LIST := 
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /home/mdl
+# environment
+SSH_CONNECTION = 172.22.2.27 52841 172.17.27.158 22
+# environment
+PATH = /home/mdl/.vscode-server/bin/da76f93349a72022ca4670c1b84860304616aaa2/bin/remote-cli:/home/mdl/bin:/home/mdl/.local/bin:/home/mdl/cuda/bin:/home/mdl/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+XDG_RUNTIME_DIR = /run/user/1017
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+CONDA_EXE = /home/mdl/anaconda3/bin/conda
+# environment
+PWD = /home/mdl/project/xt_stl
+# environment
+QT_QPA_PLATFORMTHEME = appmenu-qt5
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/1017/vscode-ipc-eed5d8ef-d588-4ead-a606-d69150d33b94.sock
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /home/mdl
+# environment
+LD_LIBRARY_PATH = :/home/mdl/cuda/lib64/
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+LOGNAME = mdl
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
++F = $(notdir $+)
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 3
+# environment
+XDG_SESSION_ID = 2292
+# environment
+USER = mdl
+# makefile
+.DEFAULT_GOAL := 
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+CONDA_SHLVL = 0
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_US:en
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 172.22.2.27 52841 22
+# environment
+MAIL = /var/mail/mdl
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /home/mdl/.vscode-server/bin/da76f93349a72022ca4670c1b84860304616aaa2/bin/helpers/browser.sh
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+LC_ALL = C
+# environment
+CONDA_PYTHON_EXE = /home/mdl/anaconda3/bin/python
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# environment
+_CE_M = 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# default
+.RECIPEPREFIX := 
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+_CE_CONDA = 
+# variable set hash-table stats:
+# Load=71/1024=7%, Rehash=0, Collisions=7/93=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2065, inode 142836012): 10 files, no impossibilities.
+
+# 10 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
+
+# files hash-table stats:
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 18 / storage = 143 B / avg = 7 B
+# current buf: size = 8162 B / used = 143 B / count = 18 / avg = 7 B
+
+# strcache performance: lookups = 21 / hit rate = 14%
+# hash-table stats:
+# Load=18/8192=0%, Rehash=0, Collisions=1/21=5%
+# Finished Make data base on Thu Aug 11 14:26:27 2022
+
+ 
+make: *** No rule to make target 'all'.  Stop.
+
