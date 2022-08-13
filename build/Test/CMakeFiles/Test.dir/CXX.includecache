@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+../Src/tree.h
+stl_iterator.h
+../Src/stl_iterator.h
+stl_alloc.h
+../Src/stl_alloc.h
+stl_contruct.h
+../Src/stl_contruct.h
+
 /home/mdl/project/xt_stl/Src/algobase.h
 cstring
 -
@@ -13,6 +21,10 @@ cstddef
 -
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
+
+/home/mdl/project/xt_stl/Src/functional.h
+cstddef
+-
 
 /home/mdl/project/xt_stl/Src/heap_algo.h
 stl_iterator.h
@@ -60,6 +72,14 @@ type_traits.h
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
 
+/home/mdl/project/xt_stl/Src/tree.h
+stl_iterator.h
+/home/mdl/project/xt_stl/Src/stl_iterator.h
+stl_alloc.h
+/home/mdl/project/xt_stl/Src/stl_alloc.h
+stl_contruct.h
+/home/mdl/project/xt_stl/Src/stl_contruct.h
+
 /home/mdl/project/xt_stl/Src/type_traits.h
 stl_config.h
 /home/mdl/project/xt_stl/Src/stl_config.h
@@ -91,6 +111,8 @@ test_vector.h
 /home/mdl/project/xt_stl/Test/test_vector.h
 test_algorithm.h
 /home/mdl/project/xt_stl/Test/test_algorithm.h
+test_rb_tree.h
+/home/mdl/project/xt_stl/Test/test_rb_tree.h
 
 /home/mdl/project/xt_stl/Test/test_algorithm.h
 gtest/gtest.h
@@ -111,6 +133,18 @@ list
 /home/mdl/project/xt_stl/Src/heap_algo.h
 ../Src/set_algo.h
 /home/mdl/project/xt_stl/Src/set_algo.h
+
+/home/mdl/project/xt_stl/Test/test_rb_tree.h
+gtest/gtest.h
+-
+tree.h
+-
+../Src/tree.h
+/home/mdl/project/xt_stl/Src/tree.h
+../Src/algobase.h
+/home/mdl/project/xt_stl/Src/algobase.h
+../Src/functional.h
+/home/mdl/project/xt_stl/Src/functional.h
 
 /home/mdl/project/xt_stl/Test/test_vector.h
 gtest/gtest.h

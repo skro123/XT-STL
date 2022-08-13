@@ -56,7 +56,7 @@ namespace my_stl
     template <class T>
     struct modules : public binary_function<T, T, T>
     {
-        T opreator()(const T& x, const T& y) const { return x % y; }
+        T operator()(const T& x, const T& y) const { return x % y; }
     };
 
     // 否定
