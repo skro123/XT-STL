@@ -6,13 +6,19 @@
 
 #IncludeRegexTransform: 
 
+../Src/pair.h
+
 ../Src/tree.h
 stl_iterator.h
 ../Src/stl_iterator.h
-stl_alloc.h
-../Src/stl_alloc.h
+alloc.h
+../Src/alloc.h
 stl_contruct.h
 ../Src/stl_contruct.h
+pair.h
+../Src/pair.h
+util.h
+../Src/util.h
 
 /home/mdl/project/xt_stl/Src/algobase.h
 cstring
@@ -21,6 +27,12 @@ cstddef
 -
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
+
+/home/mdl/project/xt_stl/Src/alloc.h
+new
+-
+iostream
+-
 
 /home/mdl/project/xt_stl/Src/functional.h
 cstddef
@@ -39,12 +51,6 @@ algobase.h
 /home/mdl/project/xt_stl/Src/algobase.h
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
-
-/home/mdl/project/xt_stl/Src/stl_alloc.h
-new
--
-iostream
--
 
 /home/mdl/project/xt_stl/Src/stl_config.h
 _G_config.h
@@ -75,10 +81,14 @@ stl_iterator.h
 /home/mdl/project/xt_stl/Src/tree.h
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
-stl_alloc.h
-/home/mdl/project/xt_stl/Src/stl_alloc.h
+alloc.h
+/home/mdl/project/xt_stl/Src/alloc.h
 stl_contruct.h
 /home/mdl/project/xt_stl/Src/stl_contruct.h
+pair.h
+/home/mdl/project/xt_stl/Src/pair.h
+util.h
+/home/mdl/project/xt_stl/Src/util.h
 
 /home/mdl/project/xt_stl/Src/type_traits.h
 stl_config.h
@@ -93,8 +103,8 @@ type_traits.h
 /home/mdl/project/xt_stl/Src/vector.h
 cstddef
 -
-stl_alloc.h
-/home/mdl/project/xt_stl/Src/stl_alloc.h
+alloc.h
+/home/mdl/project/xt_stl/Src/alloc.h
 algobase.h
 /home/mdl/project/xt_stl/Src/algobase.h
 stl_uninitialized.h

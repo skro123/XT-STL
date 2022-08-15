@@ -3,7 +3,7 @@
 #define XTSTL_VECTOR_H
 
 #include <cstddef>
-#include "stl_alloc.h"
+#include "alloc.h"
 #include "algobase.h"
 #include "stl_uninitialized.h"
 #include "stl_contruct.h"

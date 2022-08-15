@@ -4,8 +4,10 @@
 
 
 #include "stl_iterator.h"
-#include "stl_alloc.h"
+#include "alloc.h"
 #include "stl_contruct.h"
+#include "pair.h"
+#include "util.h"
 namespace my_stl
 {
     // 红黑节点颜色标志
@@ -74,7 +76,7 @@ namespace my_stl
     struct rb_tree_base_iterator
     {
         typedef rb_tree_node_base::base_ptr base_ptr;
-        typedef bidirectional_iterator_tag iteartor_category;
+        typedef bidirectional_iterator_tag iterator_category;
 
         // 数据成员
         base_ptr node;
@@ -129,6 +131,11 @@ namespace my_stl
                 node = y;
             }
         }
+
+        bool operator==(const rb_tree_base_iterator& rhs)       { return this->node == rhs.node;}
+        bool operator==(const rb_tree_base_iterator& rhs) const { return this->node == rhs.node;} 
+        bool operator!=(const rb_tree_base_iterator& rhs)       { return this->node != rhs.node;}
+        bool operator!=(const rb_tree_base_iterator& rhs) const { return this->node != rhs.node;}
     };
 
     template <class T>
@@ -138,12 +145,14 @@ namespace my_stl
         typedef T                   value_type;
         typedef T*                  pointer;
         typedef T&                  reference;
+        typedef ptrdiff_t           difference_type;
+    
 
         typedef rb_tree_node_base*   base_ptr;
         typedef rb_tree_node<T>*    node_ptr;
         typedef rb_tree_iterator<T> iterator;
         typedef rb_tree_iterator<T> self;
-
+        
         using rb_tree_base_iterator::node;
 
         rb_tree_iterator() {}
@@ -287,12 +296,148 @@ namespace my_stl
         root->color = rb_tree_color::black; 
     }
             
+    // erase rebalance
+    inline void
+    __rb_tree_erase_rebalance(rb_tree_node_base* z, rb_tree_node_base*& root, rb_tree_node_base*& leftmost, rb_tree_node_base*& rightmost)
+    {
+        rb_tree_node_base* y = z;
+        rb_tree_node_base* x = 0;
+        rb_tree_node_base* x_parent = 0;
+        if (y->left == 0)            
+            x = y->right;            
+        else
+            if (y->right == 0)         
+            x = y->left;             
+            else {          
+            y = y->right;   
+            while (y->left != 0)
+                y = y->left;
+            x = y->right;
+            }
+        if (y != z) {   
+            z->left->parent = y; 
+            y->left = z->left;
+            if (y != z->right) {
+            x_parent = y->parent;
+            if (x) x->parent = y->parent;
+            y->parent->left = x;
+            y->right = z->right;
+            z->right->parent = y;
+            }
+            else
+            x_parent = y;  
+            if (root == z)
+            root = y;
+            else if (z->parent->left == z)
+            z->parent->left = y;
+            else 
+            z->parent->right = y;
+            y->parent = z->parent;
+            my_stl::swap(y->color, z->color);
+            y = z;
+
+        }
+        else {          
+            x_parent = y->parent;
+            if (x) x->parent = y->parent;   
+            if (root == z)
+                {root = x;}
+            else 
+            {
+                if (z->parent->left == z)
+                {z->parent->left = x;}
+                else
+                {
+                    z->parent->right = x;
+                }
+            }
+            if (leftmost == z) 
+            {
+                if (z->right == 0)        
+                {
+                    leftmost = z->parent;
+                }
+                else
+                {
+                    leftmost = rb_tree_minimum(x);
+                }
+            }
+            if (rightmost == z)  
+            {
+                if (z->left == 0)       
+                    rightmost = z->parent;  
+                else                    
+                    rightmost = rb_tree_maximum(x);
+            }
+        }
+        if (y->color != rb_tree_color::red) { 
+            while (x != root && (x == 0 || x->color == rb_tree_color::black))
+            if (x == x_parent->left) {
+                rb_tree_node_base* w = x_parent->right;
+                if (w->color == rb_tree_color::red) {
+                w->color = rb_tree_color::black;
+                x_parent->color = rb_tree_color::red;
+                __rb_tree_rotate_left(x_parent, root);
+                w = x_parent->right;
+                }
+                if ((w->left == 0 || w->left->color == rb_tree_color::black) &&
+                    (w->right == 0 || w->right->color == rb_tree_color::black)) {
+                w->color = rb_tree_color::red;
+                x = x_parent;
+                x_parent = x_parent->parent;
+                } else {
+                if (w->right == 0 || w->right->color == rb_tree_color::black) {
+                    if (w->left) w->left->color = rb_tree_color::black;
+                    w->color = rb_tree_color::red;
+                    __rb_tree_rotate_right(w, root);
+                    w = x_parent->right;
+                }
+                w->color = x_parent->color;
+                x_parent->color = rb_tree_color::black;
+                if (w->right) w->right->color = rb_tree_color::black;
+                __rb_tree_rotate_left(x_parent, root);
+                break;
+                }
+            } else {                  // same as above, with right <-> left.
+                rb_tree_node_base* w = x_parent->left;
+                if (w->color == rb_tree_color::red) {
+                w->color = rb_tree_color::black;
+                x_parent->color = rb_tree_color::red;
+                __rb_tree_rotate_right(x_parent, root);
+                w = x_parent->left;
+                }
+                if ((w->right == 0 || w->right->color == rb_tree_color::black) &&
+                    (w->left == 0 || w->left->color == rb_tree_color::black)) {
+                w->color = rb_tree_color::red;
+                x = x_parent;
+                x_parent = x_parent->parent;
+                } else {
+                if (w->left == 0 || w->left->color == rb_tree_color::black) {
+                    if (w->right) w->right->color = rb_tree_color::black;
+                    w->color = rb_tree_color::red;
+                    __rb_tree_rotate_left(w, root);
+                    w = x_parent->left;
+                }
+                w->color = x_parent->color;
+                x_parent->color = rb_tree_color::black;
+                if (w->left) w->left->color = rb_tree_color::black;
+                __rb_tree_rotate_right(x_parent, root);
+                break;
+                }
+            }
+            if (x) x->color = rb_tree_color::black;
+        }
+    }
+    
     template <class T, class Compare>
     class rb_tree
     {
 
+
         typedef T           value_type;
+        typedef T           key_type;
         typedef size_t      size_type;
+        typedef ptrdiff_t           difference_type;
 
         typedef rb_tree_node_base   base_type;
         typedef rb_tree_node_base*  base_ptr;
@@ -301,6 +446,7 @@ namespace my_stl
 
         typedef Compare             key_compare;
 
+        typedef my_stl::simple_alloc<T, alloc>          data_allocator;
         typedef my_stl::simple_alloc<base_type, alloc>  base_allocator;
         typedef my_stl::simple_alloc<node_type, alloc>  node_allocator;
 
@@ -337,6 +483,11 @@ namespace my_stl
             node_ptr create_node(value_type value);
             node_ptr clone_node(base_ptr x);
             base_ptr copy_from(base_ptr x, base_ptr p);
+            void destroy_node(node_ptr node)
+            {
+                destroy(&node->value);
+                node_allocator::deallocate(node);
+            }
 
 
         // 迭代器相关操作
@@ -355,10 +506,24 @@ namespace my_stl
             size_type max_size()    const   noexcept
             { return size_type(-1);}
 
-        // 插入删除相关操作
+        // 插入
         public:
+            // 可重复插入
             iterator insert_equal(const value_type& v);
-            iterator insert_unique(const value_type& v);
+            // 不可重复插入
+            my_stl::pair<iterator, bool> insert_unique(const value_type& v);
+        
+        // 删除
+        public:
+            iterator erase(iterator position);
+            size_type erase(const key_type& key);
+            void erase(iterator first, iterator last);
+
+        // 查找
+        iterator find(const value_type& value);
+        iterator lower_bound(const key_type& key);
+        iterator upper_bound(const key_type& key);
+        my_stl::pair<iterator, iterator> equal_range(const key_type& k);
 
         private:
             iterator __insert(base_ptr x, const value_type& value, bool insert_left);
@@ -366,6 +531,7 @@ namespace my_stl
             void clear() {}
             void erase_since(const base_ptr x) {}
     };
+
 
 
     // 执行插入操作
@@ -423,10 +589,153 @@ namespace my_stl
 
     // 插入 不可重复
     template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
+    my_stl::pair<typename rb_tree<T, Compare>::iterator, bool>
     rb_tree<T, Compare>::insert_unique(const value_type& value)
     {
+        auto x = root();
+        auto y = this->_M_header;
+        bool insert_left = true;
+        while(x != nullptr)
+        {
+            y = x;
+            insert_left = this->_M_key_compare(value, node_ptr(x)->value);
+            x = insert_left ? x->left : x->right;
+        }
+        iterator j = iterator(y);
+        if(insert_left)
+        {
+            if(j == begin() || y == this->_M_header)
+            {
+                return my_stl::make_pair(this->__insert(y, value, insert_left), true);
+            }
+            else
+            { --j;}
+        }
+        if(this->_M_key_compare(*j, value))
+        {
+            return my_stl::make_pair(this->__insert(y, value, insert_left), true);
+        }
+        return my_stl::make_pair(j, false);
 
+    }
+
+    // 删除
+    template <class T, class Compare>
+    typename rb_tree<T, Compare>::iterator
+    rb_tree<T, Compare>::erase(iterator position)
+    {
+        iterator next(position);
+        ++next;
+
+        __rb_tree_erase_rebalance(position.node, root(), leftmost(), rightmost());
+        destroy_node(node_ptr(position.node));
+        --this->_M_node_count;
+        return next;
+    }
+
+    template <class T, class Compare>
+    typename rb_tree<T, Compare>::size_type 
+    rb_tree<T, Compare>::erase(const key_type& key)
+    {
+        my_stl::pair<iterator, iterator> p = equal_range(key);
+        auto n = my_stl::distance(p.first, p.second);
+        erase(p.first, p.second);
+        return n;
+    }
+
+    template <class T, class Compare>
+    void
+    rb_tree<T, Compare>::erase(iterator first, iterator last)
+    {
+        if(first == begin() && last == end())
+        {
+            clear();
+        }
+        else
+        {
+            while(first != last)
+            {
+                erase(first++);
+            }
+        }
+    }
+
+    // find
+    template <class T, class Compare>
+    typename rb_tree<T, Compare>::iterator
+    rb_tree<T, Compare>::find(const value_type& value)
+    {
+        auto x = root();
+        auto y = this->_M_header;
+        while(x != nullptr)
+        {
+            if(!this->_M_key_compare(node_ptr(x)->value, value))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+            {
+                x = x->right;
+            }
+        }
+        iterator j = iterator(y);
+        return (j == end() || this->_M_key_compare(value, *j)) ? end() : j;
+    }
+    
+    // lower_bound
+    template <class T, class Compare>
+    typename rb_tree<T, Compare>::iterator
+    rb_tree<T, Compare>::lower_bound(const key_type& key)
+    {
+        auto x = root();
+        auto y = this->_M_header;
+        while(x != nullptr)
+        {
+            // !(x < key) == x >= key
+            if(!this->_M_key_compare(node_ptr(x)->value, key))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+            {
+                x = x->right;
+            }
+        }
+        return iterator(y);
+    }
+
+    // upper_bound
+    template <class T, class Compare>
+    typename rb_tree<T, Compare>::iterator
+    rb_tree<T, Compare>::upper_bound(const key_type& key)
+    {
+        auto x = root();
+        auto y = this->_M_header;
+        while(x != nullptr)
+        {
+            // x > key == key < x
+            if(this->_M_key_compare(key, node_ptr(x)->value))
+            {
+                y = x;
+                x = x->left;
+            }
+            else
+            {
+                x = x->right;
+            }
+        }
+        return iterator(y);        
+    }
+
+    // equal_range
+    template <class T, class Compare>
+    my_stl::pair<typename rb_tree<T, Compare>::iterator,
+                typename rb_tree<T, Compare>::iterator>
+    rb_tree<T, Compare>::equal_range(const key_type& key)
+    {
+        return pair<iterator, iterator>(lower_bound(key), upper_bound(key));
     }
 
     // 拷贝构造函数
