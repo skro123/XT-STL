@@ -8,6 +8,7 @@ Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/alloc.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/functional.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/heap_algo.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/numeric.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/set.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/set_algo.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/stl_config.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/stl_contruct.h
@@ -20,6 +21,7 @@ Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test.cpp
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_algorithm.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_rb_tree.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_set.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: _deps/googletest-src/googletest/include/gtest/gtest-assertion-result.h
 Test/CMakeFiles/Test.dir/test.cpp.o: _deps/googletest-src/googletest/include/gtest/gtest-death-test.h

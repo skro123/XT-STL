@@ -167,9 +167,40 @@ namespace my_stl
         self operator++(int) { self tmp = *this; increment(); return tmp;}
         self& operator--() { decrement(); return *this;}
         self operator--(int) { self tmp = *this; decrement(); return tmp;}
-        
     };
 
+    template <class T>
+    struct rb_tree_const_iterator : public rb_tree_base_iterator
+    {
+        
+        typedef T                   value_type;
+        typedef const T*            pointer;
+        typedef const T&            reference;
+        typedef ptrdiff_t           difference_type;
+    
+
+        typedef rb_tree_node_base*   base_ptr;
+        typedef rb_tree_node<T>*    node_ptr;
+        typedef rb_tree_iterator<T>         iterator;
+        typedef rb_tree_const_iterator<T> const_iterator;
+        typedef rb_tree_const_iterator<T> self;
+        
+        using rb_tree_base_iterator::node;
+
+        rb_tree_const_iterator() {}
+        rb_tree_const_iterator(base_ptr x) { node = x;}
+        rb_tree_const_iterator(node_ptr x) { node = x;}
+        rb_tree_const_iterator(const iterator& rhs) { node = rhs.node;}
+        rb_tree_const_iterator(const const_iterator& rhs) { node = rhs.node;}
+
+        reference operator*() const { return node_ptr(node)->value;}
+        pointer operator->() const { return &(operator*());}
+
+        self& operator++() { increment(); return *this;}
+        self operator++(int) { self tmp = *this; increment(); return tmp;}
+        self& operator--() { decrement(); return *this;}
+        self operator--(int) { self tmp = *this; decrement(); return tmp;}
+    };
 
     // rotate left
     // x为旋转点 root为根节点 颜色转变在调用处处理
@@ -433,24 +464,30 @@ namespace my_stl
     class rb_tree
     {
 
+        public:
+            typedef T           value_type;
+            typedef T           key_type;
+            typedef size_t      size_type;
+            typedef ptrdiff_t           difference_type;
+            typedef T*          pointer;
+            typedef T&          reference;
+            typedef const T*    const_pointer;
+            typedef const T&    const_reference;
 
-        typedef T           value_type;
-        typedef T           key_type;
-        typedef size_t      size_type;
-        typedef ptrdiff_t           difference_type;
+            typedef rb_tree_node_base   base_type;
+            typedef rb_tree_node_base*  base_ptr;
+            typedef rb_tree_node<T>     node_type;
+            typedef rb_tree_node<T>*    node_ptr;
 
-        typedef rb_tree_node_base   base_type;
-        typedef rb_tree_node_base*  base_ptr;
-        typedef rb_tree_node<T>     node_type;
-        typedef rb_tree_node<T>*    node_ptr;
+            typedef Compare             key_compare;
 
-        typedef Compare             key_compare;
+            typedef my_stl::simple_alloc<T, alloc>          data_allocator;
+            typedef my_stl::simple_alloc<base_type, alloc>  base_allocator;
+            typedef my_stl::simple_alloc<node_type, alloc>  node_allocator;
 
-        typedef my_stl::simple_alloc<T, alloc>          data_allocator;
-        typedef my_stl::simple_alloc<base_type, alloc>  base_allocator;
-        typedef my_stl::simple_alloc<node_type, alloc>  node_allocator;
+            typedef rb_tree_iterator<T>         iterator;
+            typedef rb_tree_const_iterator<T>   const_iterator;
 
-        typedef rb_tree_iterator<T>     iterator;
         
         // 三个数据成员 表示一个RB Tree
         private:
@@ -472,8 +509,8 @@ namespace my_stl
             rb_tree(const rb_tree& rhs);
             rb_tree(rb_tree&& rhs) noexcept;
 
-            rb_tree& operator=(rb_tree& rhs);
             rb_tree& operator=(const rb_tree& rhs);
+            rb_tree& operator=(rb_tree&& rhs);
 
             ~rb_tree() {clear();}
 
@@ -518,22 +555,60 @@ namespace my_stl
             iterator erase(iterator position);
             size_type erase(const key_type& key);
             void erase(iterator first, iterator last);
-
+            void clear();
         // 查找
         iterator find(const value_type& value);
         iterator lower_bound(const key_type& key);
         iterator upper_bound(const key_type& key);
         my_stl::pair<iterator, iterator> equal_range(const key_type& k);
+        void swap(rb_tree& rhs) noexcept;
 
         private:
             iterator __insert(base_ptr x, const value_type& value, bool insert_left);
-
-            void clear() {}
-            void erase_since(const base_ptr x) {}
+            void erase_since(base_ptr x);
     };
 
+    template <class T, class Compare>
+    void
+    rb_tree<T, Compare>::clear()
+    {
+        if(this->_M_node_count != 0)
+        {
+            this->erase_since(this->root());
+            this->leftmost() = this->_M_header;
+            this->rightmost() = this->_M_header;
+            this->root() = nullptr;
+            this->_M_node_count = 0;
+        }
+    }
+    
+    template <class T, class Compare>
+    void
+    rb_tree<T, Compare>::erase_since(base_ptr x)
+    {
+        while( nullptr != x)
+        {
+            // 主循环在左子树上循环删除
+            // 并将右子树递归删除
+            // 可以避免重复删除
+            erase_since(x->right);
+            auto y = x->left;
+            destroy_node(node_ptr(x));
+            x = y;
+        }
+    }
 
-
+    template <class T, class Compare>
+    void
+    rb_tree<T, Compare>::swap(rb_tree& rhs) noexcept
+    {
+        if (this != &rhs)
+        {
+            my_stl::swap(this->_M_header, rhs._M_header);
+            my_stl::swap(this->_M_node_count, rhs._M_node_count);
+            my_stl::swap(this->_M_key_compare, rhs._M_key_compare);
+        }
+    }
     // 执行插入操作
     template <class T, class Compare>
     typename rb_tree<T, Compare>::iterator
@@ -753,6 +828,53 @@ namespace my_stl
         this->_M_key_compare = rhs._M_key_compare;
     }
 
+    // 移动构造函数
+    template <class T, class Compare>
+    rb_tree<T, Compare>::rb_tree(rb_tree&& rhs) noexcept
+    : _M_header(my_stl::move(rhs._M_header)),
+    _M_node_count(rhs._M_node_count),
+    _M_key_compare(rhs._M_key_compare)
+    {
+        rhs._M_header = nullptr;
+        rhs._M_node_count = 0;
+    }
+
+    // 复制赋值函数
+    template <class T, class Compare>
+    rb_tree<T, Compare>&
+    rb_tree<T, Compare>::operator=(const rb_tree& rhs)
+    {
+        if(this != &rhs)
+        {
+            // 安全清除当前资源
+            clear();
+            if(0 != rhs._M_node_count)
+            {
+                root() = copy_from(rhs.root(), this->_M_header);
+                leftmost() = rb_tree_minimum(root());
+                rightmost() = rb_tree_maximum(root());
+            }
+            this->_M_node_count = rhs._M_node_count;
+            this->_M_key_compare = rhs._M_key_compare;
+        }
+        return *this;
+    }
+
+    // 移动赋值函数
+    template <class T, class Compare>
+    rb_tree<T, Compare>&
+    rb_tree<T, Compare>::operator=(rb_tree&& rhs)
+    {
+        this->clear();
+        this->_M_header = my_stl::move(rhs._M_header);
+        this->_M_node_count = rhs._M_node_count;
+        this->_M_key_compare = rhs._M_key_compare;
+        rhs._M_header = nullptr;
+        rhs._M_node_count = 0;
+        return *this;
+    }
+
+    // 初始化辅助函数
     template <class T, class Compare>
     void
     rb_tree<T, Compare>::rb_tree_init()
