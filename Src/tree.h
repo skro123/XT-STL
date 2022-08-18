@@ -1,6 +1,6 @@
 
-#ifndef __XT_STL_INTERNAL_TREE_H
-#define __XT_STL_INTERNAL_TREE_H
+#ifndef XT_STL_TREE_H
+#define XT_STL_TREE_H
 
 
 #include "stl_iterator.h"
@@ -460,6 +460,10 @@ namespace my_stl
         }
     }
     
+    /* 
+        红黑树类模板，第一模板参数为红黑树节点的值域类型，第二参数为键选择函数对象，对于set为identity，对于map为selectfirst
+       第三模板参数为键比较函数对象。
+    */
     template <class _Value, class _KeyOfValue, class Compare>
     class rb_tree
     {
@@ -975,12 +979,7 @@ namespace my_stl
         }
         return top;
     }
-
-
-
-    
-
     
 } /* my_stl */
 
-#endif /* __XT_STL_INTERNAL_TREE_H */
+#endif /* XT_STL_TREE_H */

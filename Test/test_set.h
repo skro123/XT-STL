@@ -52,13 +52,16 @@ namespace set_test
         EXPECT_CON_EQ(ms1, ss1, ms1.size());
         EXPECT_EQ(10, ms1.size());
 
-        // TODO迭代器范围构造函数
-        // int arr1[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-        // my_stl::set<int, my_stl::less<int>> ms2(arr1, arr1 + 10);
-        // std::set<int, std::less<int>> ss2(arr1, arr1 + 10);
-        // EXPECT_EQ(*ms2.begin(), *ss2.begin());
+        // 迭代器范围构造函数
+        int arr1[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        my_stl::set<int, my_stl::less<int>> ms2(arr1, arr1 + 10);
+        std::set<int, std::less<int>> ss2(arr1, arr1 + 10);
+        EXPECT_EQ(*ms2.begin(), *ss2.begin());
 
-        // TODO初始化列表构造
+        // 初始化列表构造
+        my_stl::set<int, my_stl::less<int>> ms3{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        std::set<int, std::less<int>> ss3{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        EXPECT_EQ(*ms3.begin(), *ss3.begin());
 
         // 拷贝构造
         my_stl::set<int, my_stl::less<int>> ms4(ms1);
@@ -71,7 +74,7 @@ namespace set_test
         EXPECT_CON_EQ(ms5, ss5, ms5.size());
         EXPECT_EQ(10, ms5.size());        
 
-        // copy
+        // 赋值
         my_stl::set<int, my_stl::less<int>> ms6;
         std::set<int, std::less<int>> ss6;
         ms6 = ms5;
@@ -79,7 +82,7 @@ namespace set_test
         EXPECT_CON_EQ(ms6, ss6, ms6.size());
         EXPECT_EQ(10, ms6.size());
 
-        // 移动copy
+        // 移动赋值
         my_stl::set<int, my_stl::less<int>> ms7;
         std::set<int, std::less<int>> ss7;
         ms7 = std::move(ms6);
@@ -90,10 +93,10 @@ namespace set_test
         EXPECT_EQ(0, ms6.size()); // 0
         EXPECT_EQ(0, ss6.size()); // 0
 
-        // TODO 初始化列表复制
-        // std::set<int, std::less<int>> ss8 = {1, 2, 3, 4, 5, 6, 7};
-        // my_stl::set<int, my_stl::less<int>> ms8 = {1, 2, 3, 4, 5, 6, 7};
-        // EXPECT_CON_EQ(ms8, ss8, ms8.size());
+        // 初始化列表复制
+        std::set<int, std::less<int>> ss8 = {1, 2, 3, 4, 5, 6, 7};
+        my_stl::set<int, my_stl::less<int>> ms8 = {1, 2, 3, 4, 5, 6, 7};
+        EXPECT_CON_EQ(ms8, ss8, ms8.size());
     }
 
     // 插入删除测试

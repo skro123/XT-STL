@@ -7,6 +7,7 @@
 
 namespace my_stl
 {
+    /* 第一模板参数为键类型，第二模板参数为值类型，第三模板参数为键比较函数对象默认为 less<键类型> */
     template <class Key, class Value, class Compare = my_stl::less<Key>>
     class map
     {
