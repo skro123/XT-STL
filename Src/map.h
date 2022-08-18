@@ -3,6 +3,7 @@
 
 #include "../Src/tree.h"
 #include "../Src/functional.h"
+#include "../Src/pair.h"
 
 namespace my_stl
 {
@@ -20,10 +21,12 @@ namespace my_stl
             class value_compare : public binary_function <value_type, value_type, bool>
             {
                 friend class map<Key, Value, Compare>;
-                private:
+                protected:
                     Compare comp;
+
                     value_compare(Compare c) : comp(c) {}
                 public:
+                    value_compare() = default;
                     bool operator()(const value_type& lhs, const value_type& rhs) const
                     {
                         return comp(lhs.first, rhs.first);
@@ -31,7 +34,7 @@ namespace my_stl
             };
 
             private:
-                typedef my_stl::rb_tree<value_type, key_compare> rep_type;
+                typedef my_stl::rb_tree<value_type, my_stl::selectfirst<value_type>, key_compare> rep_type;
                 rep_type _M_t;
 
             public:
@@ -50,9 +53,9 @@ namespace my_stl
             public:
                 map() = default;
                 template <class InputIter>
-                // map(InputIter first, InputIter last)
-                //  :_M_t()
-                //  { t.insert_unique(first, last);}
+                map(InputIter first, InputIter last)
+                 :_M_t()
+                 { this->_M_t.insert_unique(first, last);}
                 // 拷贝构造
                 map(const map& rhs)
                  :_M_t(rhs._M_t)
@@ -63,14 +66,136 @@ namespace my_stl
                 {}
 
                 // 赋值
-                map& operator=
+                map& operator=(const map& rhs)
+                {
+                    this->_M_t = rhs._M_t;
+                    return *this;
+                }
                 // 移动赋值
+                map& operator=(map&& rhs)
+                {
+                    this->_M_t = my_stl::move(rhs._M_t);
+                    return *this;
+                }
+                // 初始化列表赋值
+                map& operator=(std::initializer_list<value_type> ilist)
+                {
+                    this->_M_t.clear();
+                    this->_M_t.insert_unique(ilist.begin(), ilist.end());
+                    return *this;
+                }
+                
+                // 相关接口
+                key_compare     get_key_compare()   const   { return this->_M_t._M_key_compare();}
+                value_compare   get_value_compare() const   { return value_compare(this->_M_t->_M_key_compare());}
 
 
+                // 迭代器相关
+                iterator    begin()     noexcept
+                { return this->_M_t.begin();}
+                const_iterator begin()  const noexcept
+                { return this->_M_t.begin();}
+                iterator    end()       noexcept
+                { return this->_M_t.end();}
+                const_iterator end()    const noexcept
+                { return this->_M_t.end();}
+                const_iterator cbegin() const noexcept
+                { return begin();}
+                const_iterator cend()   const noexcept
+                { return end();}
 
-            
+                // 容量相关
+                bool    empty() const noexcept { return this->_M_t.empty();}
+                size_type size() const noexcept { return this->_M_t.size();}
+                size_type max_size() const noexcept { return this->_M_t.max_size();}
+
+                // 访问元素
+                mapped_type& at(const key_type& key)
+                {
+                    // iterator it = 
+                }
+
+                // 插入删除相关
+                pair<iterator, bool> insert(const value_type& value)
+                {
+                    return this->_M_t.insert_unique(value);
+                }
+                // pair<iterator, bool> insert(value_type&& value)
+                // {
+                //     return this->_M_t.insert_unique(value);
+                // }
+
+                void erase(iterator position) { this->_M_t.erase(position);}
+                size_type erase(const key_type& key) { return this->_M_t.erase(key);}
+                size_type erase(const value_type& key) { return this->_M_t.erase(key);}
+                void erase(iterator first, iterator last) { this->_M_t.erase(first, last);}
+
+                void clear() { this->_M_t.clear();}
+
+                // map相关操作
+                iterator find(const key_type& key)  { return this->_M_t.find(key);}
+                const_iterator find(const key_type& key) const { return this->_M_t.find(key);}
+
+                size_type count(const key_type& key) const { return this->_M_t.count_unique(key);}
+
+                iterator lower_bound(const key_type& key) { return this->_M_t.lower_bound(key);}
+                const_iterator lower_bound(const key_type& key) const { return this->_M_t.lower_bound(key);}
+
+                iterator upper_bound(const key_type& key) { return this->_M_t.upper_bound(key);}
+                const_iterator upper_bound(const key_type& key) const { return this->_M_t.upper_bound(key);}
+
+                // TODO equal_range
+
+                void swap(map& rhs) noexcept
+                { this->_M_t.swap(rhs._M_t);}
+
+                
+            // 重载比较运算符
+            public:
+                friend bool operator==(const map& lhs, const map& rhs) { return lhs._M_t == rhs._M_t;}
+                friend bool operator< (const map& lhs, const map& rhs) { return lhs._M_t < rhs._M_t;}
 
     };
+
+    // 重载map的比较运算符
+    template <class Key, class Value, class Compare>
+    bool operator==(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return lhs == rhs;
+    }
+    template <class Key, class Value, class Compare>
+    bool operator<(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return lhs < rhs;
+    }
+    template <class Key, class Value, class Compare>
+    bool operator!=(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return lhs != rhs;
+    }
+    template <class Key, class Value, class Compare>
+    bool operator>(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return rhs < lhs;
+    }
+    template <class Key, class Value, class Compare>
+    bool operator<=(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return !(rhs < lhs);
+    }
+    template <class Key, class Value, class Compare>
+    bool operator>=(const map<Key, Value, Compare>& lhs, const map<Key, Value, Compare>& rhs)
+    {
+        return !(lhs < rhs);
+    }
+
+    // 重载针对map的swap
+    template <class Key, class Value, class Compare>
+    void swap(map<Key, Value, Compare>& lhs, map<Key, Value, Compare>& rhs)
+    {
+        lhs.swap(rhs);
+    }
+
 
 
 }

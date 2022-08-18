@@ -25,7 +25,7 @@ namespace my_stl
     inline void 
     __destroy_aux(ForwardIterator first, ForwardIterator last, __false_type) {
         for( ; first < last; ++first)
-            destory(&*first);
+            destroy(&*first);
     }
 
     template <class ForwardIterator>

@@ -34,11 +34,11 @@ namespace my_stl
         }
     };
 
-    template <class T>
+    template <class _Value>
     struct rb_tree_node : public rb_tree_node_base
     {
-        typedef T                   value_type;
-        typedef rb_tree_node<T>*    node_ptr;
+        typedef _Value                   value_type;
+        typedef rb_tree_node<_Value>*    node_ptr;
 
         // 数据成员 节点的键值 SGI5中考虑内存对齐
         value_type value;
@@ -460,33 +460,36 @@ namespace my_stl
         }
     }
     
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     class rb_tree
     {
 
         public:
-            typedef T           value_type;
-            typedef T           key_type;
-            typedef size_t      size_type;
-            typedef ptrdiff_t           difference_type;
-            typedef T*          pointer;
-            typedef T&          reference;
-            typedef const T*    const_pointer;
-            typedef const T&    const_reference;
+            typedef _Value                              value_type;
+            // 对于STL中set和map 分别使用identity和selectfirst函数对象都是pulic继承unarg_function
+            // 这里使用一元函数对象unarg_function的返回值类型 定义 键类型
+            // 刚好够用 避免SGI中使用两个模板参数分别定义键和值的类型 更具统一性
+            typedef typename _KeyOfValue::result_type   key_type;
+            typedef size_t                              size_type;
+            typedef ptrdiff_t                           difference_type;
+            typedef _Value*                             pointer;
+            typedef _Value&                             reference;
+            typedef const _Value*                       const_pointer;
+            typedef const _Value&                       const_reference;
 
-            typedef rb_tree_node_base   base_type;
-            typedef rb_tree_node_base*  base_ptr;
-            typedef rb_tree_node<T>     node_type;
-            typedef rb_tree_node<T>*    node_ptr;
+            typedef rb_tree_node_base                   base_type;
+            typedef rb_tree_node_base*                  base_ptr;
+            typedef rb_tree_node<_Value>                node_type;
+            typedef rb_tree_node<_Value>*               node_ptr;
 
-            typedef Compare             key_compare;
+            typedef Compare                             key_compare;
 
-            typedef my_stl::simple_alloc<T, alloc>          data_allocator;
+            typedef my_stl::simple_alloc<_Value, alloc>          data_allocator;
             typedef my_stl::simple_alloc<base_type, alloc>  base_allocator;
             typedef my_stl::simple_alloc<node_type, alloc>  node_allocator;
 
-            typedef rb_tree_iterator<T>         iterator;
-            typedef rb_tree_const_iterator<T>   const_iterator;
+            typedef rb_tree_iterator<_Value>         iterator;
+            typedef rb_tree_const_iterator<_Value>   const_iterator;
 
         
         // 三个数据成员 表示一个RB Tree
@@ -501,6 +504,16 @@ namespace my_stl
             base_ptr& leftmost()    const { return _M_header->left;}
             base_ptr& rightmost()   const { return _M_header->right;}
 
+            static base_ptr& left(base_ptr x)
+            { return x->left;}
+            static base_ptr& right(base_ptr x)
+            { return x->right;}
+            static base_ptr parent(base_ptr x)
+            { return x->parent;}
+            static reference value(base_ptr x)
+            { return node_ptr(x)->value;}
+            static const key_type& key(base_ptr x)
+            { return _KeyOfValue()(value(x));}
         // 构造、复制和析构函数
         public:
 
@@ -549,6 +562,15 @@ namespace my_stl
             iterator insert_equal(const value_type& v);
             // 不可重复插入
             my_stl::pair<iterator, bool> insert_unique(const value_type& v);
+            template <class InputIter>
+            void insert_unique(InputIter first, InputIter last)
+            {
+                size_type n = my_stl::distance(first, last);
+                for(; n > 0; --n, ++first)
+                {
+                    this->insert_unique(*first);
+                }
+            }
         
         // 删除
         public:
@@ -563,14 +585,19 @@ namespace my_stl
         my_stl::pair<iterator, iterator> equal_range(const key_type& k);
         void swap(rb_tree& rhs) noexcept;
 
+        size_type count_unique(const key_type& key) const
+        {
+            return find(key) ? 1 : 0;
+        }
+
         private:
             iterator __insert(base_ptr x, const value_type& value, bool insert_left);
             void erase_since(base_ptr x);
     };
 
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     void
-    rb_tree<T, Compare>::clear()
+    rb_tree<_Value, _KeyOfValue, Compare>::clear()
     {
         if(this->_M_node_count != 0)
         {
@@ -582,9 +609,9 @@ namespace my_stl
         }
     }
     
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     void
-    rb_tree<T, Compare>::erase_since(base_ptr x)
+    rb_tree<_Value, _KeyOfValue, Compare>::erase_since(base_ptr x)
     {
         while( nullptr != x)
         {
@@ -598,9 +625,9 @@ namespace my_stl
         }
     }
 
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     void
-    rb_tree<T, Compare>::swap(rb_tree& rhs) noexcept
+    rb_tree<_Value, _KeyOfValue, Compare>::swap(rb_tree& rhs) noexcept
     {
         if (this != &rhs)
         {
@@ -610,9 +637,9 @@ namespace my_stl
         }
     }
     // 执行插入操作
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::__insert(base_ptr x, const value_type& value, bool insert_left)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::__insert(base_ptr x, const value_type& value, bool insert_left)
     {
         node_ptr node = create_node(value);
         node->parent = x;
@@ -646,9 +673,9 @@ namespace my_stl
 
 
     // 插入 可重复
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::insert_equal(const value_type& value)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::insert_equal(const value_type& value)
     {
         base_ptr x_p = this->_M_header;
         base_ptr x = root();
@@ -656,16 +683,16 @@ namespace my_stl
         while(x != nullptr)
         {
             x_p = x;
-            insert_left = _M_key_compare(value, node_ptr(x)->value);
+            insert_left = _M_key_compare(_KeyOfValue()(value), key(x));
             x = insert_left ? x->left : x->right;
         }
         return this->__insert(x_p, value, insert_left);
     }
 
     // 插入 不可重复
-    template <class T, class Compare>
-    my_stl::pair<typename rb_tree<T, Compare>::iterator, bool>
-    rb_tree<T, Compare>::insert_unique(const value_type& value)
+    template <class _Value, class _KeyOfValue, class Compare>
+    my_stl::pair<typename rb_tree<_Value, _KeyOfValue, Compare>::iterator, bool>
+    rb_tree<_Value, _KeyOfValue, Compare>::insert_unique(const value_type& value)
     {
         auto x = root();
         auto y = this->_M_header;
@@ -673,7 +700,7 @@ namespace my_stl
         while(x != nullptr)
         {
             y = x;
-            insert_left = this->_M_key_compare(value, node_ptr(x)->value);
+            insert_left = this->_M_key_compare(_KeyOfValue()(value), key(x));
             x = insert_left ? x->left : x->right;
         }
         iterator j = iterator(y);
@@ -686,7 +713,7 @@ namespace my_stl
             else
             { --j;}
         }
-        if(this->_M_key_compare(*j, value))
+        if(this->_M_key_compare(_KeyOfValue()(*j), _KeyOfValue()(value)))
         {
             return my_stl::make_pair(this->__insert(y, value, insert_left), true);
         }
@@ -695,9 +722,9 @@ namespace my_stl
     }
 
     // 删除
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::erase(iterator position)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::erase(iterator position)
     {
         iterator next(position);
         ++next;
@@ -708,9 +735,9 @@ namespace my_stl
         return next;
     }
 
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::size_type 
-    rb_tree<T, Compare>::erase(const key_type& key)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::size_type 
+    rb_tree<_Value, _KeyOfValue, Compare>::erase(const key_type& key)
     {
         my_stl::pair<iterator, iterator> p = equal_range(key);
         auto n = my_stl::distance(p.first, p.second);
@@ -718,9 +745,9 @@ namespace my_stl
         return n;
     }
 
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     void
-    rb_tree<T, Compare>::erase(iterator first, iterator last)
+    rb_tree<_Value, _KeyOfValue, Compare>::erase(iterator first, iterator last)
     {
         if(first == begin() && last == end())
         {
@@ -736,9 +763,9 @@ namespace my_stl
     }
 
     // find
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::find(const value_type& value)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::find(const value_type& value)
     {
         auto x = root();
         auto y = this->_M_header;
@@ -759,16 +786,16 @@ namespace my_stl
     }
     
     // lower_bound
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::lower_bound(const key_type& key)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::lower_bound(const key_type& key)
     {
         auto x = root();
         auto y = this->_M_header;
         while(x != nullptr)
         {
             // !(x < key) == x >= key
-            if(!this->_M_key_compare(node_ptr(x)->value, key))
+            if(!this->_M_key_compare(this->key(x), key))
             {
                 y = x;
                 x = x->left;
@@ -782,16 +809,16 @@ namespace my_stl
     }
 
     // upper_bound
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::iterator
-    rb_tree<T, Compare>::upper_bound(const key_type& key)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::iterator
+    rb_tree<_Value, _KeyOfValue, Compare>::upper_bound(const key_type& key)
     {
         auto x = root();
         auto y = this->_M_header;
         while(x != nullptr)
         {
             // x > key == key < x
-            if(this->_M_key_compare(key, node_ptr(x)->value))
+            if(this->_M_key_compare(key, this->key(x)))
             {
                 y = x;
                 x = x->left;
@@ -805,17 +832,17 @@ namespace my_stl
     }
 
     // equal_range
-    template <class T, class Compare>
-    my_stl::pair<typename rb_tree<T, Compare>::iterator,
-                typename rb_tree<T, Compare>::iterator>
-    rb_tree<T, Compare>::equal_range(const key_type& key)
+    template <class _Value, class _KeyOfValue, class Compare>
+    my_stl::pair<typename rb_tree<_Value, _KeyOfValue, Compare>::iterator,
+                typename rb_tree<_Value, _KeyOfValue, Compare>::iterator>
+    rb_tree<_Value, _KeyOfValue, Compare>::equal_range(const key_type& key)
     {
         return pair<iterator, iterator>(lower_bound(key), upper_bound(key));
     }
 
     // 拷贝构造函数
-    template <class T, class Compare>
-    rb_tree<T, Compare>::rb_tree(const rb_tree& rhs)
+    template <class _Value, class _KeyOfValue, class Compare>
+    rb_tree<_Value, _KeyOfValue, Compare>::rb_tree(const rb_tree& rhs)
     {
         rb_tree_init();
         if (rhs._M_node_count != 0)
@@ -829,8 +856,8 @@ namespace my_stl
     }
 
     // 移动构造函数
-    template <class T, class Compare>
-    rb_tree<T, Compare>::rb_tree(rb_tree&& rhs) noexcept
+    template <class _Value, class _KeyOfValue, class Compare>
+    rb_tree<_Value, _KeyOfValue, Compare>::rb_tree(rb_tree&& rhs) noexcept
     : _M_header(my_stl::move(rhs._M_header)),
     _M_node_count(rhs._M_node_count),
     _M_key_compare(rhs._M_key_compare)
@@ -840,9 +867,9 @@ namespace my_stl
     }
 
     // 复制赋值函数
-    template <class T, class Compare>
-    rb_tree<T, Compare>&
-    rb_tree<T, Compare>::operator=(const rb_tree& rhs)
+    template <class _Value, class _KeyOfValue, class Compare>
+    rb_tree<_Value, _KeyOfValue, Compare>&
+    rb_tree<_Value, _KeyOfValue, Compare>::operator=(const rb_tree& rhs)
     {
         if(this != &rhs)
         {
@@ -861,9 +888,9 @@ namespace my_stl
     }
 
     // 移动赋值函数
-    template <class T, class Compare>
-    rb_tree<T, Compare>&
-    rb_tree<T, Compare>::operator=(rb_tree&& rhs)
+    template <class _Value, class _KeyOfValue, class Compare>
+    rb_tree<_Value, _KeyOfValue, Compare>&
+    rb_tree<_Value, _KeyOfValue, Compare>::operator=(rb_tree&& rhs)
     {
         this->clear();
         this->_M_header = my_stl::move(rhs._M_header);
@@ -875,9 +902,9 @@ namespace my_stl
     }
 
     // 初始化辅助函数
-    template <class T, class Compare>
+    template <class _Value, class _KeyOfValue, class Compare>
     void
-    rb_tree<T, Compare>::rb_tree_init()
+    rb_tree<_Value, _KeyOfValue, Compare>::rb_tree_init()
     {
         _M_header = base_allocator::allocate(1);
         _M_header->color = rb_tree_color::red;
@@ -887,9 +914,9 @@ namespace my_stl
         _M_node_count = 0;
     }
 
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::node_ptr
-    rb_tree<T, Compare>::create_node(value_type value)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::node_ptr
+    rb_tree<_Value, _KeyOfValue, Compare>::create_node(value_type value)
     {
         auto tmp = node_allocator::allocate(1);
         try
@@ -907,9 +934,9 @@ namespace my_stl
         return tmp;
     }
 
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::node_ptr
-    rb_tree<T, Compare>::clone_node(base_ptr x)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::node_ptr
+    rb_tree<_Value, _KeyOfValue, Compare>::clone_node(base_ptr x)
     {
         node_ptr tmp = create_node(node_ptr(x)->value);
         tmp->color = x->color;
@@ -918,9 +945,9 @@ namespace my_stl
         return tmp;
     }
 
-    template <class T, class Compare>
-    typename rb_tree<T, Compare>::base_ptr
-    rb_tree<T, Compare>::copy_from(base_ptr x, base_ptr p)
+    template <class _Value, class _KeyOfValue, class Compare>
+    typename rb_tree<_Value, _KeyOfValue, Compare>::base_ptr
+    rb_tree<_Value, _KeyOfValue, Compare>::copy_from(base_ptr x, base_ptr p)
     {
         auto top = clone_node(x);
         top->parent = p;

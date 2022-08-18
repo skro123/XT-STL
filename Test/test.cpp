@@ -6,6 +6,7 @@
 #include "test_algorithm.h"
 #include "test_rb_tree.h"
 #include "test_set.h"
+#include "test_map.h"
 
 
 

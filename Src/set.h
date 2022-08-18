@@ -17,7 +17,7 @@ namespace my_stl
 
         private:
             // 这里使用RB Tree作为底层数据结构
-            typedef my_stl::rb_tree<Key, Compare> rep_type;
+            typedef my_stl::rb_tree<Key, my_stl::identity<value_type>, Compare> rep_type;
             rep_type t;
 
         // 取出底层数据结构的内嵌型别定义

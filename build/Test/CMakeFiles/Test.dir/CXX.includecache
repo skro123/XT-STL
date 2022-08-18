@@ -20,6 +20,20 @@ pair.h
 util.h
 ../Src/util.h
 
+../Src/vector.h
+cstddef
+-
+alloc.h
+../Src/alloc.h
+algobase.h
+../Src/algobase.h
+stl_uninitialized.h
+../Src/stl_uninitialized.h
+stl_contruct.h
+../Src/stl_contruct.h
+util.h
+../Src/util.h
+
 /home/mdl/project/xt_stl/Src/algobase.h
 cstring
 -
@@ -42,9 +56,19 @@ cstddef
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
 
+/home/mdl/project/xt_stl/Src/map.h
+../Src/tree.h
+/home/mdl/project/xt_stl/Src/tree.h
+../Src/functional.h
+/home/mdl/project/xt_stl/Src/functional.h
+../Src/pair.h
+/home/mdl/project/xt_stl/Src/pair.h
+
 /home/mdl/project/xt_stl/Src/numeric.h
 stl_iterator.h
 /home/mdl/project/xt_stl/Src/stl_iterator.h
+
+/home/mdl/project/xt_stl/Src/pair.h
 
 /home/mdl/project/xt_stl/Src/set.h
 tree.h
@@ -131,6 +155,8 @@ test_rb_tree.h
 /home/mdl/project/xt_stl/Test/test_rb_tree.h
 test_set.h
 /home/mdl/project/xt_stl/Test/test_set.h
+test_map.h
+/home/mdl/project/xt_stl/Test/test_map.h
 
 /home/mdl/project/xt_stl/Test/test_algorithm.h
 gtest/gtest.h
@@ -151,6 +177,18 @@ list
 /home/mdl/project/xt_stl/Src/heap_algo.h
 ../Src/set_algo.h
 /home/mdl/project/xt_stl/Src/set_algo.h
+
+/home/mdl/project/xt_stl/Test/test_map.h
+gtest/gtest.h
+-
+map
+-
+vector.h
+-
+../Src/map.h
+/home/mdl/project/xt_stl/Src/map.h
+../Src/vector.h
+/home/mdl/project/xt_stl/Src/vector.h
 
 /home/mdl/project/xt_stl/Test/test_rb_tree.h
 gtest/gtest.h

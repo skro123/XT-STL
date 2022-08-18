@@ -16,8 +16,8 @@ namespace rbtree_test
     TEST(RBTreeTest, Constructor) 
     {
         // 默认构造函数
-        my_stl::rb_tree<int, my_stl::less<int>> t1;
-        my_stl::rb_tree<int, my_stl::less<int>> t2(t1);
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t1;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t2(t1);
         // // 指定n个元素的构造函数
         // my_stl::vector<int> v2(10);
         // // 指定n个元素以指定值的构造函数
@@ -36,13 +36,13 @@ namespace rbtree_test
     TEST(RBTreeTest, InsertEqual) 
     {
         // 默认构造函数
-        my_stl::rb_tree<int, my_stl::less<int>> t1;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t1;
 
         t1.insert_equal(2);
         EXPECT_EQ(2, *(t1.begin()));
         EXPECT_EQ(2, *(--t1.end()));
         
-        my_stl::rb_tree<int, my_stl::less<int>> t2;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t2;
         for(int i = 0; i < 100; ++i)
         {
             t2.insert_equal(i);
@@ -53,7 +53,7 @@ namespace rbtree_test
             EXPECT_EQ(i, *(it++));
         }
 
-        my_stl::rb_tree<int, my_stl::less<int>> t3;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t3;
         for(int i = 100; i < 0; ++i)
         {
             t3.insert_equal(i);
@@ -64,7 +64,7 @@ namespace rbtree_test
             EXPECT_EQ(i, *(it3++));
         }
 
-        my_stl::rb_tree<int, my_stl::less<int>> t4;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t4;
         for(int i = 0; i < 100; ++i)
         {
             t4.insert_equal(i);
@@ -82,13 +82,13 @@ namespace rbtree_test
     TEST(RBTreeTest, InsertUnique) 
     {
         // 默认构造函数
-        my_stl::rb_tree<int, my_stl::less<int>> t1;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t1;
 
         t1.insert_unique(2);
         EXPECT_EQ(2, *(t1.begin()));
         EXPECT_EQ(2, *(--t1.end()));
         
-        my_stl::rb_tree<int, my_stl::less<int>> t2;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t2;
         for(int i = 0; i < 100; ++i)
         {
             t2.insert_unique(i);
@@ -99,7 +99,7 @@ namespace rbtree_test
             EXPECT_EQ(i, *(it++));
         }
 
-        my_stl::rb_tree<int, my_stl::less<int>> t3;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t3;
         for(int i = 100; i < 0; ++i)
         {
             t3.insert_unique(i);
@@ -110,7 +110,7 @@ namespace rbtree_test
             EXPECT_EQ(i, *(it3++));
         }
 
-        my_stl::rb_tree<int, my_stl::less<int>> t4;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t4;
         for(int i = 0; i < 100; ++i)
         {
             t4.insert_unique(i);
@@ -127,7 +127,7 @@ namespace rbtree_test
     // 删除操作测试
     TEST(RBTreeTest, Erase) 
     {
-        my_stl::rb_tree<int, my_stl::less<int>> t1;
+        my_stl::rb_tree<int, my_stl::identity<int>, my_stl::less<int>> t1;
         for(int i = 0; i < 100; ++i)
         {
             t1.insert_equal(i);

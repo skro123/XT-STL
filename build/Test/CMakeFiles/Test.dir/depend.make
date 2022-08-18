@@ -3,11 +3,14 @@
 
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/pair.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/tree.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/algobase.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/alloc.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/functional.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/heap_algo.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/map.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/numeric.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/pair.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/set.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/set_algo.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/stl_config.h
@@ -20,6 +23,7 @@ Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/util.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test.cpp
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_algorithm.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_map.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_rb_tree.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_set.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_vector.h

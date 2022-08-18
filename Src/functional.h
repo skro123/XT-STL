@@ -150,9 +150,9 @@ namespace my_stl
     //-------------------证同、选择和投影----------------//
     // 证同函数
     template <class T>
-    struct identity :public unarg_function<T, bool>
+    struct identity :public unarg_function<T, T>
     {
-    const T& operator()(const T& x) const { return x; }
+        const T& operator()(const T& x) const { return x; }
     };
 
     // 选择函数 返回pair的第一个元素
