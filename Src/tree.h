@@ -498,8 +498,8 @@ namespace my_stl
         
         // 三个数据成员 表示一个RB Tree
         private:
-            size_type   _M_node_count;
             base_ptr    _M_header;
+            size_type   _M_node_count;
             key_compare _M_key_compare;
 
         // 三个成员函数 取得根、最小和最大节点
@@ -860,6 +860,7 @@ namespace my_stl
     }
 
     // 移动构造函数
+    // 注意成员初始化顺序要和声明顺序一致 否则出现警告  warning "will be initialized after [-Wreorder]
     template <class _Value, class _KeyOfValue, class Compare>
     rb_tree<_Value, _KeyOfValue, Compare>::rb_tree(rb_tree&& rhs) noexcept
     : _M_header(my_stl::move(rhs._M_header)),
