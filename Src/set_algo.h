@@ -1,9 +1,9 @@
 
-#ifndef __XT_STL_INTERNAL_SET_H
-#define __XT_STL_INTERNAL_SET_H
+#ifndef XT_STL_SET_H
+#define XT_STL_SET_H
 
 #include "algobase.h"
-#include "stl_iterator.h"
+#include "iterator.h"
 
 namespace my_stl
 {
@@ -235,4 +235,4 @@ namespace my_stl
 
 } /* my_stl */
 
-#endif /* __XT_STL_INTERNAL_SET_H */
+#endif /* XT_STL_SET_H */

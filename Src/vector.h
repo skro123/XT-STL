@@ -1,12 +1,12 @@
 
-#ifndef XTSTL_VECTOR_H
-#define XTSTL_VECTOR_H
+#ifndef XT_STL_VECTOR_H
+#define XT_STL_VECTOR_H
 
 #include <cstddef>
 #include "alloc.h"
 #include "algobase.h"
-#include "stl_uninitialized.h"
-#include "stl_contruct.h"
+#include "uninitialized.h"
+#include "contruct.h"
 #include "util.h"
 
 namespace my_stl

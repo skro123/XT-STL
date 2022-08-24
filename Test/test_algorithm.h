@@ -7,7 +7,7 @@
 #include "../Src/numeric.h"
 #include "../Src/heap_algo.h"
 #include "../Src/set_algo.h"
-
+#include "vector.h"
 
 namespace my_stl
 {

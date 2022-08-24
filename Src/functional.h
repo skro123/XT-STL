@@ -1,5 +1,5 @@
-#ifndef __XT_STL_FUNCTIONAL_H
-#define __XT_STL_FUNCTIONAL_H
+#ifndef XT_STL_FUNCTIONAL_H
+#define XT_STL_FUNCTIONAL_H
 
 #include <cstddef>
 
@@ -196,4 +196,4 @@ namespace my_stl
 
 
 
-#endif /* __XT_STL_FUNCTIONAL_H */
+#endif /* XT_STL_FUNCTIONAL_H */

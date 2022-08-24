@@ -1,5 +1,0 @@
-if(EXISTS "/home/mdl/project/xt_stl/build/Test/Test[1]_tests.cmake")
-  include("/home/mdl/project/xt_stl/build/Test/Test[1]_tests.cmake")
-else()
-  add_test(Test_NOT_BUILT Test_NOT_BUILT)
-endif()

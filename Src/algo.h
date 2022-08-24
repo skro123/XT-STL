@@ -1,5 +1,5 @@
-#ifndef __XT_STL_INTERNAL_ALGO_H
-#define __XT_STL_INTERNAL_ALGO_H
+#ifndef XT_STL_ALGO_H
+#define XT_STL_ALGO_H
 
 #include <cstddef>
 #include <ctime>

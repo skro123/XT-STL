@@ -1,5 +1,5 @@
-#ifndef XTSTL_UTIL_H
-#define XTSTL_UTIL_H
+#ifndef XT_STL_UTIL_H
+#define XT_STL_UTIL_H
 
 #include <cstddef>
 #include "type_traits.h"
@@ -27,4 +27,4 @@ namespace my_stl
 
 } /* my_stl */
 
-#endif /* XTSTL_UTIL_H */
+#endif /* XT_STL_UTIL_H */

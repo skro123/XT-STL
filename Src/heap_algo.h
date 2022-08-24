@@ -1,8 +1,8 @@
 
-#ifndef __XT_STL_INTERNAL_HEAP_H
-#define __XT_STL_INTERNAL_HEAP_H
+#ifndef XT_STL_HEAP_H
+#define XT_STL_HEAP_H
 
-#include "stl_iterator.h"
+#include "iterator.h"
 
 namespace my_stl
 {
@@ -222,4 +222,4 @@ namespace my_stl
 
 } /* namespace my_stl */
 
-#endif /* __XT_STL_INTERNAL_HEAP_H */
+#endif /* XT_STL_HEAP_H */

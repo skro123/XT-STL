@@ -1,5 +1,5 @@
-#ifndef XT_STL_PAIR
-#define XT_STL_PAIR
+#ifndef XT_STL_PAIR_H
+#define XT_STL_PAIR_H
 
 
 namespace my_stl
@@ -46,4 +46,4 @@ operator< (pair<T1, T2>& x, pair<T1, T2>& y)
 } // namespace my_stl
 
 
-#endif /* XT_STL_PAIR */
+#endif /* XT_STL_PAIR_H */

@@ -1,3 +1,0 @@
-/home/mdl/project/xt_stl/build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir
-/home/mdl/project/xt_stl/build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
-/home/mdl/project/xt_stl/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir

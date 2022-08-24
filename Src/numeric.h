@@ -1,7 +1,7 @@
-#ifndef XT_STL_NUMERIC_H_
-#define XT_STL_NUMERIC_H_
+#ifndef XT_STL_NUMERIC_H
+#define XT_STL_NUMERIC_H
 
-#include "stl_iterator.h"
+#include "iterator.h"
 
 namespace my_stl
 {
@@ -128,4 +128,4 @@ namespace my_stl
     }
 } // my_stl
 
-#endif // XT_STL_NUMERIC_H_
+#endif /* XT_STL_NUMERIC_H */

@@ -58,7 +58,7 @@ namespace vector_test
     // 看看内存是否能释放掉？？
 
     // 赋值函数测试
-    TEST(VectorTest, CopyOperator) 
+    TEST(VectorTest, AssignOperator) 
     {
         my_stl::vector<int> v3(10, 1);
         my_stl::vector<int> v8, v9, v10;

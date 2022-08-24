@@ -3,9 +3,9 @@
 #define XT_STL_TREE_H
 
 
-#include "stl_iterator.h"
+#include "iterator.h"
 #include "alloc.h"
-#include "stl_contruct.h"
+#include "contruct.h"
 #include "pair.h"
 #include "util.h"
 namespace my_stl
@@ -777,7 +777,7 @@ namespace my_stl
         {
             if(!this->_M_key_compare(node_ptr(x)->value, value))
             {
-                y = x;
+                y = x;   // 注意只有 key(x) >= value 的时候才会更新y
                 x = x->left;
             }
             else
@@ -786,6 +786,7 @@ namespace my_stl
             }
         }
         iterator j = iterator(y);
+        // 当没有找到对应元素时 y指向header(本身代表end())或者一个不等于value的节点 就直接返回end()
         return (j == end() || this->_M_key_compare(value, *j)) ? end() : j;
     }
     

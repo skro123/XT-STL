@@ -1,9 +1,9 @@
-#ifndef XT_STL_MAP_H_
-#define XT_STL_MAP_H_
+#ifndef XT_STL_MAP_H
+#define XT_STL_MAP_H
 
-#include "../Src/tree.h"
-#include "../Src/functional.h"
-#include "../Src/pair.h"
+#include "tree.h"
+#include "functional.h"
+#include "pair.h"
 
 namespace my_stl
 {
@@ -199,6 +199,6 @@ namespace my_stl
 
 
 
-}
+} // my_stl
 
-#endif
+#endif /* XT_STL_MAP_H */

@@ -1,10 +1,10 @@
-#ifndef XT_STL_ALGOBASE_H_
-#define XT_STL_ALGOBASE_H_
+#ifndef XT_STL_ALGOBASE_H
+#define XT_STL_ALGOBASE_H
 
 #include <cstring>
 #include <cstddef>
 
-#include "stl_iterator.h"
+#include "iterator.h"
 
 namespace my_stl
 {
@@ -106,7 +106,7 @@ namespace my_stl
     OutputIter 
     __copy(InputIter first, InputIter last, OutputIter result)
     {
-        return __copy(first, last, result, iterator_category(first));
+        return __copy_cat(first, last, result, iterator_category(first));
     }
 
     template <class Tp, class Up>
@@ -494,4 +494,4 @@ namespace my_stl
     }
 } // namespace my_stl
 
-#endif // XT_STL_ALGOBASE_H_
+#endif /* XT_STL_ALGOBASE_H */
