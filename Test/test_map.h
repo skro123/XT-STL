@@ -86,6 +86,7 @@ namespace map_test
             mm1.insert(my_stl::make_pair(i,i+1));
             ss1.insert(std::make_pair(i,i+1));
         }
+        
         for(int i = 10; i < 20; ++i)
         {
             mm1.erase(i);

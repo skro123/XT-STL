@@ -9,9 +9,9 @@ namespace my_stl
 {
 
     //---------------set_union-------------------------//
-    template <class InputIter1, class InputIter2, class OutputIter>
-    OutputIter set_union(InputIter1 first1, InputIter1 last1,
-                        InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter>
+    OutputIter set_union(InputIterator1 first1, InputIterator1 last1,
+                        InputIterator2 first2, InputIterator2 last2,
                         OutputIter result)
     {
         while (first1 != last1 && first2 != last2)
@@ -37,9 +37,9 @@ namespace my_stl
         return my_stl::copy(first2, last2, my_stl::copy(first1, last1, result));
     }
 
-    template <class InputIter1, class InputIter2, class OutputIter, class Comp>
-    OutputIter set_union(InputIter1 first1, InputIter1 last1,
-                        InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter, class Comp>
+    OutputIter set_union(InputIterator1 first1, InputIterator1 last1,
+                        InputIterator2 first2, InputIterator2 last2,
                         OutputIter result,
                         Comp comp)
     {
@@ -67,9 +67,9 @@ namespace my_stl
     }
 
     //--------------------------set_intersection-------------------------//
-    template <class InputIter1, class InputIter2, class OutputIter>
-    OutputIter set_intersection(InputIter1 first1, InputIter1 last1,
-                                InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter>
+    OutputIter set_intersection(InputIterator1 first1, InputIterator1 last1,
+                                InputIterator2 first2, InputIterator2 last2,
                                 OutputIter result)
     {
         while (first1 != last1 && first2 != last2)
@@ -94,9 +94,9 @@ namespace my_stl
         return result;
     }
 
-    template <class InputIter1, class InputIter2, class OutputIter, class Comp>
-    OutputIter set_intersection(InputIter1 first1, InputIter1 last1,
-                                InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter, class Comp>
+    OutputIter set_intersection(InputIterator1 first1, InputIterator1 last1,
+                                InputIterator2 first2, InputIterator2 last2,
                                 OutputIter result,
                                 Comp comp)
     {
@@ -122,9 +122,9 @@ namespace my_stl
     }
 
     //-----------------------------set_difference----------------------------//
-    template <class InputIter1, class InputIter2, class OutputIter>
-    OutputIter set_difference(InputIter1 first1, InputIter1 last1,
-                            InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter>
+    OutputIter set_difference(InputIterator1 first1, InputIterator1 last1,
+                            InputIterator2 first2, InputIterator2 last2,
                             OutputIter result)
     {
     while (first1 != last1 && first2 != last2)
@@ -149,9 +149,9 @@ namespace my_stl
     }
 
     // 重载版本使用函数对象 comp 代替比较操作
-    template <class InputIter1, class InputIter2, class OutputIter, class Compared>
-    OutputIter set_difference(InputIter1 first1, InputIter1 last1,
-                            InputIter2 first2, InputIter2 last2, 
+    template <class InputIterator1, class InputIterator2, class OutputIter, class Compared>
+    OutputIter set_difference(InputIterator1 first1, InputIterator1 last1,
+                            InputIterator2 first2, InputIterator2 last2, 
                             OutputIter result, Compared comp)
     {
     while (first1 != last1 && first2 != last2)
@@ -176,9 +176,9 @@ namespace my_stl
     }
 
     //-------------------------------set_symmetric_difference----------------------//
-    template <class InputIter1, class InputIter2, class OutputIter>
-    OutputIter set_symmetric_difference(InputIter1 first1, InputIter1 last1,
-                                        InputIter2 first2, InputIter2 last2, 
+    template <class InputIterator1, class InputIterator2, class OutputIter>
+    OutputIter set_symmetric_difference(InputIterator1 first1, InputIterator1 last1,
+                                        InputIterator2 first2, InputIterator2 last2, 
                                         OutputIter result)
     {
     while (first1 != last1 && first2 != last2)
@@ -205,9 +205,9 @@ namespace my_stl
     }
 
     // 重载版本使用函数对象 comp 代替比较操作
-    template <class InputIter1, class InputIter2, class OutputIter, class Compared>
-    OutputIter set_symmetric_difference(InputIter1 first1, InputIter1 last1,
-                                        InputIter2 first2, InputIter2 last2,
+    template <class InputIterator1, class InputIterator2, class OutputIter, class Compared>
+    OutputIter set_symmetric_difference(InputIterator1 first1, InputIterator1 last1,
+                                        InputIterator2 first2, InputIterator2 last2,
                                         OutputIter result, Compared comp)
     {
     while (first1 != last1 && first2 != last2)

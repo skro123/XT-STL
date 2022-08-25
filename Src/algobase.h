@@ -5,7 +5,7 @@
 #include <cstddef>
 
 #include "iterator.h"
-
+#include "util.h"
 namespace my_stl
 {
     /**
@@ -71,6 +71,11 @@ namespace my_stl
     }
 
     //------------iter_swap-----------------------//
+    template <class FIter1, class FIter2>
+    void iter_swap(FIter1 lhs, FIter2 rhs)
+    {
+        my_stl::swap(*lhs, *rhs);
+    }
 
     /*
      * @name Copy
@@ -390,9 +395,9 @@ namespace my_stl
 
 
     //------------------fill--------------------------//
-    template <class ForwardIter, class T>
+    template <class ForwardIterator, class T>
     void
-    __fill_cat(ForwardIter first, ForwardIter last, const T& value,
+    __fill_cat(ForwardIterator first, ForwardIterator last, const T& value,
                 my_stl::forward_iterator_tag)
     {
         for ( ; first != last; ++first)
@@ -408,8 +413,8 @@ namespace my_stl
         fill_n(first, last - first, value);
     }
 
-    template <class ForwardIter, class T>
-    void fill(ForwardIter first, ForwardIter last, const T& value)
+    template <class ForwardIterator, class T>
+    void fill(ForwardIterator first, ForwardIterator last, const T& value)
     {
         __fill_cat(first, last, my_stl::iterator_category(first));
     }

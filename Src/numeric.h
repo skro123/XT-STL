@@ -63,8 +63,8 @@ namespace my_stl
 
     //----------------------inner_product------------------------//
     // 版本1
-    template <class InputIter1, class InputIter2, class T>
-    T inner_product(InputIter1 first1, InputIter1 last1, InputIter2 first2, T init)
+    template <class InputIterator1, class InputIterator2, class T>
+    T inner_product(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init)
     {
         for (; first1 != last1; ++first1, ++first2)
         {
@@ -74,8 +74,8 @@ namespace my_stl
     }
 
     // 版本2
-    template <class InputIter1, class InputIter2, class T, class BinaryOp1, class BinaryOp2>
-    T inner_product(InputIter1 first1, InputIter1 last1, InputIter2 first2, T init,
+    template <class InputIterator1, class InputIterator2, class T, class BinaryOp1, class BinaryOp2>
+    T inner_product(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, T init,
                     BinaryOp1 binary_op1, BinaryOp2 binary_op2)
     {
         for (; first1 != last1; ++first1, ++first2)
@@ -86,8 +86,8 @@ namespace my_stl
     }
 
     //------------------------iota-----------------------------//
-    template <class ForwardIter, class T>
-    void iota(ForwardIter first, ForwardIter last, T value)
+    template <class ForwardIterator, class T>
+    void iota(ForwardIterator first, ForwardIterator last, T value)
     {
         while (first != last)
         {
