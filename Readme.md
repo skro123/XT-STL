@@ -22,7 +22,7 @@ make
 
 ## 测试结果
 
-[==========] 114 tests from 12 test suites ran. (2 ms total)
+[==========] 114 tests from 12 test suites ran. (2 ms total)<br/>
 [  PASSED  ] 114 tests.
 
 ## 文档
