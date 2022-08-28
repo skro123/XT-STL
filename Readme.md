@@ -1,4 +1,4 @@
-# 小天的TinySTL^-^
+# 小天的STL^-^
 
 ## 介绍
 这是我基于C++11实现的一个模板库。
@@ -20,5 +20,10 @@ make
 ./bin/Test
 ```
 
+## 测试结果
+
+[==========] 114 tests from 12 test suites ran. (2 ms total)
+[  PASSED  ] 114 tests.
+
 ## 文档
-正在构建中呢...
+正在使用doxygen构建中呢...

@@ -17,6 +17,7 @@ Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/algo.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/algobase.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/functional.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/hashtable.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/heap_algo.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/iterator.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/map.h
@@ -28,6 +29,7 @@ Test/CMakeFiles/Test.dir/test.cpp.o: ../Src/vector.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test.cpp
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_algorithm.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_deque.h
+Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_hashtable.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_list.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_map.h
 Test/CMakeFiles/Test.dir/test.cpp.o: ../Test/test_queue.h

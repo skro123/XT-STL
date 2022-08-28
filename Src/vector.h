@@ -316,6 +316,20 @@ namespace my_stl
             void resize(size_type new_size) 
             { resize(new_size, value_type()); }
 
+            void reserve(size_type n)
+            {
+                if (capacity() < n)
+                {
+                    const auto old_size = size();
+                    auto tmp = data_allocator::allocate(n);
+                    my_stl::uninitialized_copy(_M_start, _M_finish, tmp);
+                    data_allocator::deallocate(_M_start, _M_end_of_storage - _M_start);
+                    _M_start = tmp;
+                    _M_finish = tmp + old_size;
+                    _M_end_of_storage = _M_start + n;
+                }
+            }
+
             // 与另一个 vector 交换
             void swap(vector& rhs) noexcept;
 

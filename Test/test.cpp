@@ -11,6 +11,9 @@
 #include "test_rb_tree.h"
 #include "test_set.h"
 #include "test_map.h"
+#include "test_hashtable.h"
+#include "test_hashset.h"
+#include "test_hashmap.h"
 
 
 
