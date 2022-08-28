@@ -1,0 +1,270 @@
+Running main() from XXXX/project/xt_stl/_deps/googletest-src/googletest/src/gtest_main.cc
+[==========] Running 114 tests from 12 test suites.
+[----------] Global test environment set-up.
+[----------] 55 tests from AlgorithmTest
+[ RUN      ] AlgorithmTest.copy_test
+[       OK ] AlgorithmTest.copy_test (0 ms)
+[ RUN      ] AlgorithmTest.copy_backward_test
+[       OK ] AlgorithmTest.copy_backward_test (0 ms)
+[ RUN      ] AlgorithmTest.copy_if_test
+[       OK ] AlgorithmTest.copy_if_test (0 ms)
+[ RUN      ] AlgorithmTest.copy_n_test
+[       OK ] AlgorithmTest.copy_n_test (0 ms)
+[ RUN      ] AlgorithmTest.move_test
+[       OK ] AlgorithmTest.move_test (0 ms)
+[ RUN      ] AlgorithmTest.fill_n_test
+[       OK ] AlgorithmTest.fill_n_test (0 ms)
+[ RUN      ] AlgorithmTest.fill_test
+[       OK ] AlgorithmTest.fill_test (0 ms)
+[ RUN      ] AlgorithmTest.lexicographical_compare_test
+[       OK ] AlgorithmTest.lexicographical_compare_test (0 ms)
+[ RUN      ] AlgorithmTest.mismatch_test
+[       OK ] AlgorithmTest.mismatch_test (0 ms)
+[ RUN      ] AlgorithmTest.accumulate_test
+[       OK ] AlgorithmTest.accumulate_test (0 ms)
+[ RUN      ] AlgorithmTest.adjacent_difference_test
+[       OK ] AlgorithmTest.adjacent_difference_test (0 ms)
+[ RUN      ] AlgorithmTest.inner_product_test
+[       OK ] AlgorithmTest.inner_product_test (0 ms)
+[ RUN      ] AlgorithmTest.iota_test
+[       OK ] AlgorithmTest.iota_test (0 ms)
+[ RUN      ] AlgorithmTest.partial_sum_test
+[       OK ] AlgorithmTest.partial_sum_test (0 ms)
+[ RUN      ] AlgorithmTest.make_heap_test
+[       OK ] AlgorithmTest.make_heap_test (0 ms)
+[ RUN      ] AlgorithmTest.push_heap_test
+[       OK ] AlgorithmTest.push_heap_test (0 ms)
+[ RUN      ] AlgorithmTest.pop_heap_test
+[       OK ] AlgorithmTest.pop_heap_test (0 ms)
+[ RUN      ] AlgorithmTest.sort_heap_test
+[       OK ] AlgorithmTest.sort_heap_test (0 ms)
+[ RUN      ] AlgorithmTest.set_union_test
+[       OK ] AlgorithmTest.set_union_test (0 ms)
+[ RUN      ] AlgorithmTest.set_intersection_test
+[       OK ] AlgorithmTest.set_intersection_test (0 ms)
+[ RUN      ] AlgorithmTest.set_difference_test
+[       OK ] AlgorithmTest.set_difference_test (0 ms)
+[ RUN      ] AlgorithmTest.set_symmetric_difference_test
+[       OK ] AlgorithmTest.set_symmetric_difference_test (0 ms)
+[ RUN      ] AlgorithmTest.adjacent_find
+[       OK ] AlgorithmTest.adjacent_find (0 ms)
+[ RUN      ] AlgorithmTest.count_test
+[       OK ] AlgorithmTest.count_test (0 ms)
+[ RUN      ] AlgorithmTest.count_if_test
+[       OK ] AlgorithmTest.count_if_test (0 ms)
+[ RUN      ] AlgorithmTest.search_test
+[       OK ] AlgorithmTest.search_test (0 ms)
+[ RUN      ] AlgorithmTest.search_n_test
+[       OK ] AlgorithmTest.search_n_test (0 ms)
+[ RUN      ] AlgorithmTest.find_test
+[       OK ] AlgorithmTest.find_test (0 ms)
+[ RUN      ] AlgorithmTest.find_if_test
+[       OK ] AlgorithmTest.find_if_test (0 ms)
+[ RUN      ] AlgorithmTest.find_end_test
+[       OK ] AlgorithmTest.find_end_test (0 ms)
+[ RUN      ] AlgorithmTest.find_first_of_test
+[       OK ] AlgorithmTest.find_first_of_test (0 ms)
+[ RUN      ] AlgorithmTest.for_each_test
+[       OK ] AlgorithmTest.for_each_test (0 ms)
+[ RUN      ] AlgorithmTest.generate_test
+[       OK ] AlgorithmTest.generate_test (0 ms)
+[ RUN      ] AlgorithmTest.generate_n_test
+[       OK ] AlgorithmTest.generate_n_test (0 ms)
+[ RUN      ] AlgorithmTest.includes_test
+[       OK ] AlgorithmTest.includes_test (0 ms)
+[ RUN      ] AlgorithmTest.max_elememt_test
+[       OK ] AlgorithmTest.max_elememt_test (0 ms)
+[ RUN      ] AlgorithmTest.min_elememt_test
+[       OK ] AlgorithmTest.min_elememt_test (0 ms)
+[ RUN      ] AlgorithmTest.merge_test
+[       OK ] AlgorithmTest.merge_test (0 ms)
+[ RUN      ] AlgorithmTest.partition_test
+[       OK ] AlgorithmTest.partition_test (0 ms)
+[ RUN      ] AlgorithmTest.remove_test
+[       OK ] AlgorithmTest.remove_test (0 ms)
+[ RUN      ] AlgorithmTest.remove_copy_test
+[       OK ] AlgorithmTest.remove_copy_test (0 ms)
+[ RUN      ] AlgorithmTest.remove_copy_if_test
+[       OK ] AlgorithmTest.remove_copy_if_test (0 ms)
+[ RUN      ] AlgorithmTest.remove_if_test
+[       OK ] AlgorithmTest.remove_if_test (0 ms)
+[ RUN      ] AlgorithmTest.replace_test
+[       OK ] AlgorithmTest.replace_test (0 ms)
+[ RUN      ] AlgorithmTest.replace_if_test
+[       OK ] AlgorithmTest.replace_if_test (0 ms)
+[ RUN      ] AlgorithmTest.replace_copy_test
+[       OK ] AlgorithmTest.replace_copy_test (0 ms)
+[ RUN      ] AlgorithmTest.replace_copy_if_test
+[       OK ] AlgorithmTest.replace_copy_if_test (0 ms)
+[ RUN      ] AlgorithmTest.reverse_test
+[       OK ] AlgorithmTest.reverse_test (0 ms)
+[ RUN      ] AlgorithmTest.reverse_copy_test
+[       OK ] AlgorithmTest.reverse_copy_test (0 ms)
+[ RUN      ] AlgorithmTest.rotate_test
+[       OK ] AlgorithmTest.rotate_test (0 ms)
+[ RUN      ] AlgorithmTest.rotate_copy_test
+[       OK ] AlgorithmTest.rotate_copy_test (0 ms)
+[ RUN      ] AlgorithmTest.swap_ranges_test
+[       OK ] AlgorithmTest.swap_ranges_test (0 ms)
+[ RUN      ] AlgorithmTest.transform_test
+[       OK ] AlgorithmTest.transform_test (0 ms)
+[ RUN      ] AlgorithmTest.unique_test
+[       OK ] AlgorithmTest.unique_test (0 ms)
+[ RUN      ] AlgorithmTest.unique_copy_test
+[       OK ] AlgorithmTest.unique_copy_test (0 ms)
+[----------] 55 tests from AlgorithmTest (0 ms total)
+
+[----------] 6 tests from VectorTest
+[ RUN      ] VectorTest.Constructor
+[       OK ] VectorTest.Constructor (0 ms)
+[ RUN      ] VectorTest.AssignOperator
+[       OK ] VectorTest.AssignOperator (0 ms)
+[ RUN      ] VectorTest.Iterator
+[       OK ] VectorTest.Iterator (0 ms)
+[ RUN      ] VectorTest.Capacity
+[       OK ] VectorTest.Capacity (0 ms)
+[ RUN      ] VectorTest.ElementAccess
+[       OK ] VectorTest.ElementAccess (0 ms)
+[ RUN      ] VectorTest.Modifiers
+[       OK ] VectorTest.Modifiers (0 ms)
+[----------] 6 tests from VectorTest (0 ms total)
+
+[----------] 9 tests from ListTest
+[ RUN      ] ListTest.Constructor
+[       OK ] ListTest.Constructor (0 ms)
+[ RUN      ] ListTest.AssignOperator
+[       OK ] ListTest.AssignOperator (0 ms)
+[ RUN      ] ListTest.Iterator
+[       OK ] ListTest.Iterator (0 ms)
+[ RUN      ] ListTest.Capacity
+[       OK ] ListTest.Capacity (0 ms)
+[ RUN      ] ListTest.ElementAccess
+[       OK ] ListTest.ElementAccess (0 ms)
+[ RUN      ] ListTest.Insert
+[       OK ] ListTest.Insert (0 ms)
+[ RUN      ] ListTest.Erase
+[       OK ] ListTest.Erase (0 ms)
+[ RUN      ] ListTest.Clear
+[       OK ] ListTest.Clear (0 ms)
+[ RUN      ] ListTest.splice
+[       OK ] ListTest.splice (0 ms)
+[----------] 9 tests from ListTest (0 ms total)
+
+[----------] 8 tests from DequeTest
+[ RUN      ] DequeTest.Constructor
+[       OK ] DequeTest.Constructor (0 ms)
+[ RUN      ] DequeTest.AssignOperator
+[       OK ] DequeTest.AssignOperator (0 ms)
+[ RUN      ] DequeTest.Iterator
+[       OK ] DequeTest.Iterator (0 ms)
+[ RUN      ] DequeTest.Capacity
+[       OK ] DequeTest.Capacity (0 ms)
+[ RUN      ] DequeTest.ElementAccess
+[       OK ] DequeTest.ElementAccess (0 ms)
+[ RUN      ] DequeTest.Insert
+[       OK ] DequeTest.Insert (0 ms)
+[ RUN      ] DequeTest.Erase
+[       OK ] DequeTest.Erase (0 ms)
+[ RUN      ] DequeTest.Clear
+[       OK ] DequeTest.Clear (0 ms)
+[----------] 8 tests from DequeTest (0 ms total)
+
+[----------] 6 tests from StackTest
+[ RUN      ] StackTest.Constructor
+[       OK ] StackTest.Constructor (0 ms)
+[ RUN      ] StackTest.AssignOperator
+[       OK ] StackTest.AssignOperator (0 ms)
+[ RUN      ] StackTest.Capacity
+[       OK ] StackTest.Capacity (0 ms)
+[ RUN      ] StackTest.ElementAccess
+[       OK ] StackTest.ElementAccess (0 ms)
+[ RUN      ] StackTest.Push
+[       OK ] StackTest.Push (0 ms)
+[ RUN      ] StackTest.Pop
+[       OK ] StackTest.Pop (0 ms)
+[----------] 6 tests from StackTest (0 ms total)
+
+[----------] 6 tests from QueueTest
+[ RUN      ] QueueTest.Constructor
+[       OK ] QueueTest.Constructor (0 ms)
+[ RUN      ] QueueTest.AssignOperator
+[       OK ] QueueTest.AssignOperator (0 ms)
+[ RUN      ] QueueTest.Capacity
+[       OK ] QueueTest.Capacity (0 ms)
+[ RUN      ] QueueTest.ElementAccess
+[       OK ] QueueTest.ElementAccess (0 ms)
+[ RUN      ] QueueTest.Push
+[       OK ] QueueTest.Push (0 ms)
+[ RUN      ] QueueTest.Pop
+[       OK ] QueueTest.Pop (0 ms)
+[----------] 6 tests from QueueTest (0 ms total)
+
+[----------] 4 tests from RBTreeTest
+[ RUN      ] RBTreeTest.Constructor
+[       OK ] RBTreeTest.Constructor (0 ms)
+[ RUN      ] RBTreeTest.InsertEqual
+[       OK ] RBTreeTest.InsertEqual (0 ms)
+[ RUN      ] RBTreeTest.InsertUnique
+[       OK ] RBTreeTest.InsertUnique (0 ms)
+[ RUN      ] RBTreeTest.Erase
+[       OK ] RBTreeTest.Erase (0 ms)
+[----------] 4 tests from RBTreeTest (0 ms total)
+
+[----------] 2 tests from SetTest
+[ RUN      ] SetTest.Constructor
+[       OK ] SetTest.Constructor (0 ms)
+[ RUN      ] SetTest.Insert
+[       OK ] SetTest.Insert (0 ms)
+[----------] 2 tests from SetTest (0 ms total)
+
+[----------] 3 tests from MapTest
+[ RUN      ] MapTest.Constructor
+[       OK ] MapTest.Constructor (0 ms)
+[ RUN      ] MapTest.Insert
+[       OK ] MapTest.Insert (0 ms)
+[ RUN      ] MapTest.Erase
+[       OK ] MapTest.Erase (0 ms)
+[----------] 3 tests from MapTest (0 ms total)
+
+[----------] 5 tests from hashtableTest
+[ RUN      ] hashtableTest.Constructor
+[       OK ] hashtableTest.Constructor (0 ms)
+[ RUN      ] hashtableTest.InsertEqual
+[       OK ] hashtableTest.InsertEqual (0 ms)
+[ RUN      ] hashtableTest.InsertUnique
+[       OK ] hashtableTest.InsertUnique (0 ms)
+[ RUN      ] hashtableTest.Find
+[       OK ] hashtableTest.Find (0 ms)
+[ RUN      ] hashtableTest.Erase
+[       OK ] hashtableTest.Erase (0 ms)
+[----------] 5 tests from hashtableTest (0 ms total)
+
+[----------] 5 tests from HashSetTest
+[ RUN      ] HashSetTest.Constructor
+[       OK ] HashSetTest.Constructor (0 ms)
+[ RUN      ] HashSetTest.Capacity
+[       OK ] HashSetTest.Capacity (0 ms)
+[ RUN      ] HashSetTest.Insert
+[       OK ] HashSetTest.Insert (0 ms)
+[ RUN      ] HashSetTest.find
+[       OK ] HashSetTest.find (0 ms)
+[ RUN      ] HashSetTest.Erase
+[       OK ] HashSetTest.Erase (0 ms)
+[----------] 5 tests from HashSetTest (0 ms total)
+
+[----------] 5 tests from HashMapTest
+[ RUN      ] HashMapTest.Constructor
+[       OK ] HashMapTest.Constructor (0 ms)
+[ RUN      ] HashMapTest.Capacity
+[       OK ] HashMapTest.Capacity (0 ms)
+[ RUN      ] HashMapTest.Insert
+[       OK ] HashMapTest.Insert (0 ms)
+[ RUN      ] HashMapTest.find
+[       OK ] HashMapTest.find (0 ms)
+[ RUN      ] HashMapTest.Erase
+[       OK ] HashMapTest.Erase (0 ms)
+[----------] 5 tests from HashMapTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 114 tests from 12 test suites ran. (3 ms total)
+[  PASSED  ] 114 tests.

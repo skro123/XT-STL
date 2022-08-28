@@ -21,7 +21,8 @@ make
 ```
 
 ## 测试结果
-
+[测试结果输出](./resources/test_result.txt)
+### 结果摘要
 [==========] 114 tests from 12 test suites ran. (2 ms total)<br/>
 [  PASSED  ] 114 tests.
 
